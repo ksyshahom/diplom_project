@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $pages = \App\Models\Page::all();
+    dd($pages);
     return view('welcome');
 });

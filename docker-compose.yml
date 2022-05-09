@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/app.cnf:/etc/mysql/conf.d/app.cnf
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+      MYSQL_USER: diplom-mysql-user
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_DATABASE: diplom
+  nginx:
+    image: nginx:1.20 # Stable for 09.05.2022.
+    ports:
+      - 80:80
+    depends_on:
+      - php
+    volumes:
+      - ./laravel:/data/www/app
+      - ./nginx/templates/main.conf.template:/etc/nginx/templates/main.conf.template
+      - ./nginx/logs:/etc/nginx/logs
+  php:
+    build: ./php
+    volumes:
+      - ./laravel:/data/www/app
+      - ./api/php.ini:/usr/local/etc/php/conf.d/app-php.ini

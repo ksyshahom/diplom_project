@@ -9,7 +9,12 @@
 </head>
 <body>
 <main>
-    <p>Контент.</p>
+    <a href="/auth">Авторизация/Регистрация</a>
+    @if ($page)
+        <p>{!! $page->content !!}</p>
+    @else
+        <p>Контента нет.</p>
+    @endif
 </main>
 </body>
 </html>

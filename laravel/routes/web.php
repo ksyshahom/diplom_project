@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\InterviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,10 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::get('/app', [AppController::class, 'index']);
+Route::post('/app', [AppController::class, 'send']);
+
+Route::get('/interview', [InterviewController::class, 'index']);
+Route::get('/interview/{program}', [InterviewController::class, 'program']);
+Route::post('/interview/{program}', [InterviewController::class, 'signUp']);

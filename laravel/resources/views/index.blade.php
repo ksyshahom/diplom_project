@@ -9,7 +9,11 @@
 </head>
 <body>
 <main>
-    <a href="/auth">Авторизация/Регистрация</a>
+    @if (auth()->user())
+        <a href="/dashboard">Войти в личный кабинет</a>
+    @else
+        <a href="/auth">Авторизация/Регистрация</a>
+    @endif
     @if ($page)
         <p>{!! $page->content !!}</p>
     @else

@@ -13,7 +13,14 @@
     @if (request()->has('success'))
         <p>Вы успешно зарегистрировались!</p>
     @endif
-    <a href="/auth/logout">Выйти из профиля.</a>
+    <p><a href="/">На главную.</a></p>
+    <p><a href="/auth/logout">Выйти из профиля.</a></p>
 </main>
+<hr>
+<section>
+    <p>Сайдбар.</p>
+    <p><a href="/app">Заявка@empty($user->app) (еще не подана)@endempty</a></p>
+    <p><a href="{{ $user->appIsVerified ? '/interview' : '#' }}">Собеседование@if($user->appIsVerified === false) (недоступно)@endif</a></p>
+</section>
 </body>
 </html>

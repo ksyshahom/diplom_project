@@ -1,0 +1,16 @@
+services:
+  mysql:
+    volumes:
+      - mysql-data:/var/lib/mysql
+  nginx:
+    volumes:
+      - laravel-repo:/data/www/app
+  php:
+    volumes:
+      - laravel-repo:/data/www/app
+
+volumes:
+  mysql-data:
+    external: true
+  laravel-repo:
+    external: true

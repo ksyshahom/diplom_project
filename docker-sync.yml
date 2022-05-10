@@ -1,0 +1,18 @@
+version: "2"
+
+options:
+  compose-file-path: [docker-compose.yml, docker-compose-sync.yml]
+  verbose: true
+
+syncs:
+  mysql-data:
+    notify_terminal: true
+    src: './mysql/data'
+  laravel-repo:
+    notify_terminal: true
+    src: "./laravel"
+    sync_excludes: ['.git', '.idea', 'node_modules']
+    # www-data:www-data
+    sync_userid: 33
+    sync_groupid: 33
+    # ---

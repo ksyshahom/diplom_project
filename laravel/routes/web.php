@@ -7,6 +7,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\InterviewController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +33,49 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
+// Абитуриент: Страница создания заявки. Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
 Route::get('/app', [AppController::class, 'index']);
+// Абитуриент: Отправка заявки.
 Route::post('/app', [AppController::class, 'send']);
+// Абитуриент: Может удалить свою заявку.
+Route::get('/app/delete', [AppController::class, 'delete']);
+// Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
+Route::get('/app/{application}', [AppController::class, 'item']);
+// Сотрудник приемной комиссии: Сможет просматривать все заявки абитуриентов и переходить к ним.
+Route::post('/app/list', [AppController::class, 'list']);
+// Сотрудник приемной комиссии: Сможет проверять.
+Route::post('/app/{application}', [AppController::class, 'edit']);
 
+// Абитуриент: Список собеседований по каждой программе.
 Route::get('/interview', [InterviewController::class, 'index']);
-Route::get('/interview/{program}', [InterviewController::class, 'program']);
+// Абитуриент: Выбор даты собеседования. Если два одинаковых времени - первый преподаватель по алфавиту.
+Route::get('/interview/{program}', [InterviewController::class, 'item']);
+// Абитуриент: Запись на собеседование.
 Route::post('/interview/{program}', [InterviewController::class, 'signUp']);
+
+// Администратор: Страница редактирования ролей.
+Route::get('/roles', [RolesController::class, 'index']);
+Route::post('/roles', [RolesController::class, 'update']);
+
+// Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
+// Отсюда администратор может перейти на заявку абитуриента.
+Route::get('/report', [ReportController::class, 'index']);
+
+// Администратор: Редактирование страницы (пока только главной).
+Route::get('/pages/{page}', [PagesController::class, 'item']);
+Route::post('/pages/{page}', [PagesController::class, 'edit']);
+
+// Преподаватель: Страница редактирования профиля: направления и контактные данные.
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/profile', [ProfileController::class, 'edit']);
+
+// Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
+// На этой же страница форма ТОЛЬКО для добавления нового интервала.
+Route::get('/schedule', [ScheduleController::class, 'index']);
+// Преподаватель: Добавление нового интервала.
+Route::post('/schedule', [ScheduleController::class, 'edit']);
+// Преподаватель: Подробности собеседования.
+Route::get('/schedule/{schedule}', [ScheduleController::class, 'item']);
+// Преподаватель: Редактирование собеседования.
+Route::post('/schedule/{schedule}', [ScheduleController::class, 'editItem']);
+

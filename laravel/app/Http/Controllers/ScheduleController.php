@@ -6,9 +6,14 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class InterviewController extends Controller
+class ScheduleController extends Controller
 {
     public function index(Request $request)
+    {
+        //
+    }
+
+    public function edit(Request $request)
     {
         //
     }
@@ -18,7 +23,7 @@ class InterviewController extends Controller
         //
     }
 
-    public function signUp(Request $request)
+    public function editItem(Request $request)
     {
         //
     }

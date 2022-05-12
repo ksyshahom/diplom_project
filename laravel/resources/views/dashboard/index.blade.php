@@ -19,8 +19,15 @@
 <hr>
 <section>
     <p>Сайдбар.</p>
-    <p><a href="/app">Заявка@empty($user->app) (еще не подана)@endempty</a></p>
-    <p><a href="{{ $user->appIsVerified ? '/interview' : '#' }}">Собеседование@if($user->appIsVerified === false) (недоступно)@endif</a></p>
-</section>
+    @switch ($user->role_id)
+        @case(1)
+            <p><a href="/app">Заявка@empty($user->app) (еще не подана)@endempty</a></p>
+            <p><a href="{{ $user->appIsVerified ? '/interview' : '#' }}">Собеседование@if($user->appIsVerified === false) (недоступно)@endif</a></p>
+            @break
+        @case(4)
+            <p><a href="/app">Заявка@empty($user->app) (еще не подана)@endempty</a></p>
+            @break
+    @endswitch
+    </section>
 </body>
 </html>

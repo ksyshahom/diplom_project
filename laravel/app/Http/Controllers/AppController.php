@@ -48,4 +48,24 @@ class AppController extends Controller
         }
         return redirect('/dashboard');
     }
+
+    public function delete(Request $request)
+    {
+        //
+    }
+
+    public function item(Request $request)
+    {
+        //
+    }
+
+    public function list(Request $request)
+    {
+        //
+    }
+
+    public function edit(Request $request)
+    {
+        //
+    }
 }

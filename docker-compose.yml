@@ -25,4 +25,4 @@ services:
     build: ./php
     volumes:
       - ./laravel:/data/www/app
-      - ./api/php.ini:/usr/local/etc/php/conf.d/app-php.ini
+      - ./php/php.ini:/usr/local/etc/php/conf.d/app-php.ini

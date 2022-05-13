@@ -93,9 +93,9 @@ Route::middleware([isAuth::class])->group(function () {
 
     // Сотрудник приемной комиссии.
     Route::middleware([isAdmissionOfficer::class])->group(function () {
-        // Сотрудник приемной комиссии: Сможет просматривать все заявки абитуриентов и переходить к ним.
+        // Сотрудник приемной комиссии: Сможет просматривать заявки всех абитуриентов и переходить к ним.
         Route::post('/app/list', [AppController::class, 'list']);
-        // Сотрудник приемной комиссии: Сможет проверять.
+        // Сотрудник приемной комиссии: Сможет редактировать заявки (POST).
         Route::post('/app/{application}', [AppController::class, 'edit']);
     });
 

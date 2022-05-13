@@ -35,13 +35,15 @@ use App\Http\Middleware\isTeacher;
 // [+] Главная страница.
 Route::get('/', [MainController::class, 'index']);
 
-// [+] Авторизация и регистрация.
+// [+] Только НЕ авторизованные пользователи.
 Route::middleware([isNotAuth::class])->group(function () {
+    // [+] Авторизация и регистрация.
     Route::get('/auth', [AuthController::class, 'index']);
     Route::post('/auth/sign-up', [AuthController::class, 'signUp']);
     Route::post('/auth/login', [AuthController::class, 'login']);
 });
 
+// [] Только авторизованные пользователи.
 Route::middleware([isAuth::class])->group(function () {
     // [+] Выход из личного кабинета.
     Route::get('/auth/logout', [AuthController::class, 'logout']);
@@ -49,6 +51,7 @@ Route::middleware([isAuth::class])->group(function () {
     // [] Главная страница личного кабинета.
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
+    // [] Абитуриент.
     Route::middleware([isEnrollee::class])->group(function () {
         // [] Абитуриент: Страница создания заявки.
         // Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
@@ -61,16 +64,19 @@ Route::middleware([isAuth::class])->group(function () {
         // Абитуриент: Список собеседований по каждой программе.
         Route::get('/interview', [InterviewController::class, 'index']);
         // Абитуриент: Выбор даты собеседования. Если два одинаковых времени - первый преподаватель по алфавиту.
+        // Тут происходит выбор часового пояса.
         Route::get('/interview/{program}', [InterviewController::class, 'item']);
         // Абитуриент: Запись на собеседование.
         Route::post('/interview/{program}', [InterviewController::class, 'signUp']);
     });
 
+    // Все, кроме абитуриента.
     Route::middleware([isNotEnrollee::class])->group(function () {
         // Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
         Route::get('/app/{application}', [AppController::class, 'item']);
     });
 
+    // [] Администратор.
     Route::middleware([isAdmin::class])->group(function () {
         // [+] Администратор: Страница редактирования ролей.
         Route::get('/roles', [RolesController::class, 'index']);
@@ -80,11 +86,12 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/pages/{page}', [PagesController::class, 'item']);
         Route::post('/pages/{page}', [PagesController::class, 'edit']);
 
-        // Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
+        // [] Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
         // Отсюда администратор может перейти на заявку абитуриента.
         Route::get('/report', [ReportController::class, 'index']);
     });
 
+    // Сотрудник приемной комиссии.
     Route::middleware([isAdmissionOfficer::class])->group(function () {
         // Сотрудник приемной комиссии: Сможет просматривать все заявки абитуриентов и переходить к ним.
         Route::post('/app/list', [AppController::class, 'list']);
@@ -92,6 +99,7 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/app/{application}', [AppController::class, 'edit']);
     });
 
+    // Преподаватель.
     Route::middleware([isTeacher::class])->group(function () {
         // Преподаватель: Страница редактирования профиля: направления и контактные данные.
         Route::get('/profile', [ProfileController::class, 'index']);

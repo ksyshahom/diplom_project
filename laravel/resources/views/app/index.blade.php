@@ -19,6 +19,7 @@
     </section>
 @endif
 <main>
+    <p>Вернуться <a href="/dashboard">в личный кабинет</a>.</p>
     <p>Подача заявки</p>
     @if ($user->app && $user->app->verified == 0)
         <p>Заявки находится на рассмотрении.</p>

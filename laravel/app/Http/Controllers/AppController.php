@@ -7,6 +7,7 @@ use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AppController extends Controller
 {
@@ -34,16 +35,34 @@ class AppController extends Controller
                 // ...
             ]);
             $data = $request->all();
+            //
             if ($request->has('photo')) {
                 $data['photo'] = $request->file('photo')
                     ->store("public/users/$user->id");
             }
             $data['diploma'] = $request->file('diploma')
                 ->store("public/users/$user->id");
-            Application::create([
+            //
+            $application = Application::create([
                 'user_id' => $user->id,
                 'data' => $data,
                 'verified' => 0,
+            ]);
+            //
+            DB::table('application_program')->insert([
+                'application_id' => $application->id,
+                'program_id' => $request->program_01,
+                'priority' => 1,
+            ]);
+            DB::table('application_program')->insert([
+                'application_id' => $application->id,
+                'program_id' => $request->program_02,
+                'priority' => 2,
+            ]);
+            DB::table('application_program')->insert([
+                'application_id' => $application->id,
+                'program_id' => $request->program_03,
+                'priority' => 3,
             ]);
         }
         return redirect('/dashboard');

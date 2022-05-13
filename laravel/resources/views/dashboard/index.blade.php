@@ -26,6 +26,7 @@
             @break
         @case(4)
             <p><a href="/roles">Роли</a></p>
+            <p><a href="/report">Отчет по абитуриентам</a></p>
             <p><a href="/pages/1">Редактирование главной страницы</a></p>
             @break
     @endswitch

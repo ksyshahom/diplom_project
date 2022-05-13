@@ -49,14 +49,32 @@ class User extends Authenticatable
     }
 
     /**
-     * Interact with the user's address.
-     *
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function appIsVerified(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->app && $this->app->verified == 1,
+            get: fn() => $this->app && $this->app->verified == 1,
+        );
+    }
+
+    /**
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => implode(' ', array_filter([$this->first_name, $this->middle_name, $this->last_name])),
+        );
+    }
+
+    /**
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function interviews(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->app && $this->app->interviews ? $this->app->interviews : collect(),
         );
     }
 }

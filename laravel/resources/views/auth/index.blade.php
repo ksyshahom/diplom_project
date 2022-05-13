@@ -37,11 +37,11 @@
         <label>Имя<br>
             <input type="text" name="first_name" value="{{ old('first_name') }}" required><br>
         </label>
-        <label>Фамилия<br>
-            <input type="text" name="last_name" value="{{ old('last_name') }}" required><br>
-        </label>
         <label>Отчество (если есть)<br>
             <input type="text" name="middle_name" value="{{ old('middle_name') }}"><br>
+        </label>
+        <label>Фамилия<br>
+            <input type="text" name="last_name" value="{{ old('last_name') }}" required><br>
         </label>
         <label>E-mail<br>
             <input type="email" name="email" value="{{ old('email') }}" required><br>

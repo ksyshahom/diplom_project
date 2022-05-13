@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Program;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class AppController extends Controller
@@ -73,18 +73,27 @@ class AppController extends Controller
         //
     }
 
-    public function item(Request $request)
+    public function item(Request $request, Application $application)
     {
-        //
+        return view('app/item', compact('application'));
     }
 
-    public function list(Request $request)
+    public function appList(Request $request)
     {
-        //
+        $enrollees = User::where('role_id', 1)->get();
+        return view('app/list', compact('enrollees'));
     }
 
     public function edit(Request $request)
     {
-        //
+        $request->validate([
+            'application_id' => 'required',
+            'verified' => 'required',
+        ]);
+        Application::where('id', $request->application_id)->update([
+            'verified' => $request->verified,
+            'comment' => $request->has('comment') && $request->comment ? $request->comment : null,
+        ]);
+        return $this->appList($request);
     }
 }

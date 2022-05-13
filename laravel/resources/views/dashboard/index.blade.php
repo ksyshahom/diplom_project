@@ -24,6 +24,9 @@
             <p><a href="/app">Заявка@empty($user->app) (еще не подана)@endempty</a></p>
             <p><a href="{{ $user->appIsVerified ? '/interview' : '#' }}">Собеседование@if($user->appIsVerified === false) (недоступно)@endif</a></p>
             @break
+        @case(2)
+            <p><a href="/app/list">Заявки абитуриентов</a></p>
+            @break
         @case(4)
             <p><a href="/roles">Роли</a></p>
             <p><a href="/report">Отчет по абитуриентам</a></p>

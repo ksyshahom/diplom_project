@@ -70,12 +70,6 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/interview/{program}', [InterviewController::class, 'signUp']);
     });
 
-    // Все, кроме абитуриента.
-    Route::middleware([isNotEnrollee::class])->group(function () {
-        // Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
-        Route::get('/app/{application}', [AppController::class, 'item']);
-    });
-
     // [+] Администратор.
     Route::middleware([isAdmin::class])->group(function () {
         // [+] Администратор: Страница редактирования ролей.
@@ -91,12 +85,12 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/report', [ReportController::class, 'index']);
     });
 
-    // Сотрудник приемной комиссии.
+    // [+] Сотрудник приемной комиссии.
     Route::middleware([isAdmissionOfficer::class])->group(function () {
-        // Сотрудник приемной комиссии: Сможет просматривать заявки всех абитуриентов и переходить к ним.
-        Route::post('/app/list', [AppController::class, 'list']);
-        // Сотрудник приемной комиссии: Сможет редактировать заявки (POST).
-        Route::post('/app/{application}', [AppController::class, 'edit']);
+        // [+] Сотрудник приемной комиссии: Сможет просматривать заявки всех абитуриентов и переходить к ним.
+        Route::get('/app/list', [AppController::class, 'appList']);
+        // [+] Сотрудник приемной комиссии: Сможет редактировать заявки (POST).
+        Route::post('/app/list', [AppController::class, 'edit']);
     });
 
     // Преподаватель.
@@ -114,5 +108,11 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/schedule/{schedule}', [ScheduleController::class, 'item']);
         // Преподаватель: Редактирование собеседования.
         Route::post('/schedule/{schedule}', [ScheduleController::class, 'editItem']);
+    });
+
+    // Все, кроме абитуриента.
+    Route::middleware([isNotEnrollee::class])->group(function () {
+        // Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
+        Route::get('/app/{application}', [AppController::class, 'item']);
     });
 });

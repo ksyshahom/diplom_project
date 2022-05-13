@@ -28,6 +28,6 @@
             <p><a href="/roles">Роли</a></p>
             @break
     @endswitch
-    </section>
+</section>
 </body>
 </html>

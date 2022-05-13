@@ -32,8 +32,10 @@ use App\Http\Middleware\isTeacher;
 |
 */
 
+// [+] Главная страница.
 Route::get('/', [MainController::class, 'index']);
 
+// [+] Авторизация и регистрация.
 Route::middleware([isNotAuth::class])->group(function () {
     Route::get('/auth', [AuthController::class, 'index']);
     Route::post('/auth/sign-up', [AuthController::class, 'signUp']);
@@ -41,14 +43,17 @@ Route::middleware([isNotAuth::class])->group(function () {
 });
 
 Route::middleware([isAuth::class])->group(function () {
+    // [+] Выход из личного кабинета.
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
+    // [] Главная страница личного кабинета.
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::middleware([isEnrollee::class])->group(function () {
-        // Абитуриент: Страница создания заявки. Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
+        // [] Абитуриент: Страница создания заявки.
+        // Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
         Route::get('/app', [AppController::class, 'index']);
-        // Абитуриент: Отправка заявки.
+        // [] Абитуриент: Отправка заявки.
         Route::post('/app', [AppController::class, 'send']);
         // Абитуриент: Может удалить свою заявку.
         Route::get('/app/delete', [AppController::class, 'delete']);
@@ -67,7 +72,7 @@ Route::middleware([isAuth::class])->group(function () {
     });
 
     Route::middleware([isAdmin::class])->group(function () {
-        // Администратор: Страница редактирования ролей.
+        // [+] Администратор: Страница редактирования ролей.
         Route::get('/roles', [RolesController::class, 'index']);
         Route::post('/roles', [RolesController::class, 'update']);
 
@@ -79,7 +84,6 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/pages/{page}', [PagesController::class, 'item']);
         Route::post('/pages/{page}', [PagesController::class, 'edit']);
     });
-
 
     Route::middleware([isAdmissionOfficer::class])->group(function () {
         // Сотрудник приемной комиссии: Сможет просматривать все заявки абитуриентов и переходить к ним.

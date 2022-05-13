@@ -5,11 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Главная</title>
+    <title>Личный кабинет</title>
 </head>
 <body>
 <main>
-    <p>Контент.</p>
+    <p>Добро пожаловать!</p>
     @if (request()->has('success'))
         <p>Вы успешно зарегистрировались!</p>
     @endif
@@ -26,6 +26,7 @@
             @break
         @case(4)
             <p><a href="/roles">Роли</a></p>
+            <p><a href="/pages/1">Редактирование главной страницы</a></p>
             @break
     @endswitch
 </section>

@@ -15,7 +15,7 @@
         <a href="/auth">Авторизация/Регистрация</a>
     @endif
     @if ($page)
-        <p>{!! $page->content !!}</p>
+        <p>{!! nl2br($page->content) !!}</p>
     @else
         <p>Контента нет.</p>
     @endif

@@ -76,13 +76,13 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/roles', [RolesController::class, 'index']);
         Route::post('/roles', [RolesController::class, 'update']);
 
+        // [+] Администратор: Редактирование страницы (пока только главной).
+        Route::get('/pages/{page}', [PagesController::class, 'item']);
+        Route::post('/pages/{page}', [PagesController::class, 'edit']);
+
         // Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
         // Отсюда администратор может перейти на заявку абитуриента.
         Route::get('/report', [ReportController::class, 'index']);
-
-        // Администратор: Редактирование страницы (пока только главной).
-        Route::get('/pages/{page}', [PagesController::class, 'item']);
-        Route::post('/pages/{page}', [PagesController::class, 'edit']);
     });
 
     Route::middleware([isAdmissionOfficer::class])->group(function () {

@@ -92,7 +92,7 @@ class AppController extends Controller
         ]);
         Application::where('id', $request->application_id)->update([
             'verified' => $request->verified,
-            'comment' => $request->has('comment') && $request->comment ? $request->comment : null,
+            'comment' => $request->filled('comment') ? $request->comment : null,
         ]);
         return $this->appList($request);
     }

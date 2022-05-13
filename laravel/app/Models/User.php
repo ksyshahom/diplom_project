@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
+    const TEACHER_ROLE_ID = 3;
     protected $rememberTokenName = false;
     /**
      * The attributes that are mass assignable.
@@ -49,6 +50,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the teacher associated with the user.
+     */
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    /**
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
     public function appIsVerified(): Attribute
@@ -75,6 +84,16 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->app && $this->app->interviews ? $this->app->interviews : collect(),
+        );
+    }
+
+    /**
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function isTeacher(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->role_id == self::TEACHER_ROLE_ID,
         );
     }
 }

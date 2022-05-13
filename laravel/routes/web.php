@@ -93,9 +93,9 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/app/list', [AppController::class, 'edit']);
     });
 
-    // Преподаватель.
+    // [] Преподаватель.
     Route::middleware([isTeacher::class])->group(function () {
-        // Преподаватель: Страница редактирования профиля: направления и контактные данные.
+        // [] Преподаватель: Страница редактирования профиля: направления и контактные данные.
         Route::get('/profile', [ProfileController::class, 'index']);
         Route::post('/profile', [ProfileController::class, 'edit']);
 

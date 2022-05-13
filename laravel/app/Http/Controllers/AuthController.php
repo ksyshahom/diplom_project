@@ -44,7 +44,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'first_name' => $request->first_name,
-                'middle_name' => $request->has('middle_name') ? $request->middle_name : null,
+                'middle_name' => $request->filled('middle_name') ? $request->middle_name : null,
                 'last_name' => $request->last_name,
                 'role_id' => 1,
             ]);

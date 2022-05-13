@@ -27,6 +27,10 @@
         @case(2)
             <p><a href="/app/list">Заявки абитуриентов</a></p>
             @break
+        @case(3)
+            <p><a href="/profile">Профиль</a></p>
+            <p><a href="/schedule">Расписание</a></p>
+            @break
         @case(4)
             <p><a href="/roles">Роли</a></p>
             <p><a href="/report">Отчет по абитуриентам</a></p>

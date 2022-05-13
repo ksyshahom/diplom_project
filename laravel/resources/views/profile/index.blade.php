@@ -29,7 +29,8 @@
         </label>
         <p>Направления:</p>
         @foreach($programs as $program)
-            <label><input type="checkbox" name="programs[]" value="{{ $program->id }}"{{ $user->teacher->programs->contains('id', $program->id) ? ' checked' : '' }}> {{ $program->name }}<br></label>
+            <label><input type="checkbox" {{ $user->teacher->programs->contains('id', $program->id) ? ' checked' : '' }}
+                value="{{ $program->id }}" name="programs[]"> {{ $program->name }}<br></label>
         @endforeach
         <br>
         <button>Сохранить</button>

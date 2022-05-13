@@ -76,7 +76,7 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/app/{application}', [AppController::class, 'item']);
     });
 
-    // [] Администратор.
+    // [+] Администратор.
     Route::middleware([isAdmin::class])->group(function () {
         // [+] Администратор: Страница редактирования ролей.
         Route::get('/roles', [RolesController::class, 'index']);
@@ -86,8 +86,8 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/pages/{page}', [PagesController::class, 'item']);
         Route::post('/pages/{page}', [PagesController::class, 'edit']);
 
-        // [] Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
-        // Отсюда администратор может перейти на заявку абитуриента.
+        // [+] Администратор: Список абитуриентов и отчет по каждому. Единая большая таблица.
+        // [+] Отсюда администратор может перейти на заявку абитуриента.
         Route::get('/report', [ReportController::class, 'index']);
     });
 

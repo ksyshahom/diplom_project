@@ -23,6 +23,7 @@
     <p>Роли.</p>
     <table>
         <tr>
+            <th>ФИО</th>
             <th>E-mail</th>
             <th>Role</th>
             <th></th>
@@ -32,6 +33,7 @@
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <tr>
+                    <td>{{ $user->fullName }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
                         <select name="role_id">

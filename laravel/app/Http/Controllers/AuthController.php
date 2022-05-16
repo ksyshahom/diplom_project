@@ -11,7 +11,9 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('auth/index');
+//        $view = 'auth/index';
+        $view = '_bs/auth/index';
+        return view($view);
     }
 
     public function login(Request $request)
@@ -25,7 +27,7 @@ class AuthController extends Controller
             return redirect('/dashboard');
         } else {
             return back()
-                ->withErrors(['email' => 'Введены некорректные данные для авторизации.'])
+                ->withErrors(['email' => 'Incorrect authorization info.'])
                 ->withInput();
         }
     }
@@ -52,7 +54,7 @@ class AuthController extends Controller
             return redirect('/dashboard?success=true');
         } else {
             return back()
-                ->withErrors(['email' => 'Пользователь с таким E-mail уже был зарегистрирован.'])
+                ->withErrors(['email' => 'A user with this Email already exists.'])
                 ->withInput();
         }
     }

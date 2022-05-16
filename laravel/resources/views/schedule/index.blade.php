@@ -50,14 +50,20 @@
             <th>Дата собеседование</th>
             <th>Интервалы</th>
         </tr>
-        @foreach($schedule as $scheduleItem)
+        @foreach($schedule as $date => $scheduleItems)
             <tr>
-                <td>{{ $scheduleItem->date }}</td>
-                @if($scheduleItem->hasInterview)
-                    <td><a href="/schedule/{{ $scheduleItem->id }}">{{ $scheduleItem->interval->name }}</a> (занято)</td>
-                @else
-                    <td>{{ $scheduleItem->interval->name }}</td>
-                @endif
+                <td>{{ $date }}</td>
+                <td>
+                    <ul>
+                        @foreach($scheduleItems as $scheduleItem)
+                            @if($scheduleItem->hasInterview)
+                                <li><a href="/schedule/{{ $scheduleItem->id }}">{{ $scheduleItem->interval->name }}</a> (занято)</li>
+                            @else
+                                <li>{{ $scheduleItem->interval->name }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </td>
             </tr>
         @endforeach
     </table>

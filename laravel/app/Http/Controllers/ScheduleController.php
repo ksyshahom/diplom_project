@@ -14,7 +14,8 @@ class ScheduleController extends Controller
     {
         $intervals = Interval::all();
         $teacherId = Auth::user()->teacher->id;
-        $schedule = Schedule::where('teacher_id', $teacherId)->get();
+        $schedule = Schedule::where('teacher_id', $teacherId)->get()->groupBy('date');
+//        dd($schedule);
         return view(
             'schedule/index',
             compact('intervals', 'schedule')

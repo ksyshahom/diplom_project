@@ -15,56 +15,64 @@ class AppController extends Controller
     {
         $user = Auth::user();
         $programs = Program::all();
+//        $app = Application::where('user_id', $user->id)->first();
+//        dd($app, $app->data);
         return view('app/index', compact('user', 'programs'));
     }
 
     public function send(Request $request)
     {
         $user = Auth::user();
-        if (is_null($user->app)) {
-            $request->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                // ...
-                'nationality' => 'required',
-                'program_01' => 'required',
-                'program_02' => 'required',
-                'program_03' => 'required',
-                // ...
-                'diploma' => 'required',
-                // ...
-            ]);
-            $data = $request->all();
-            //
-            if ($request->has('photo')) {
-                $data['photo'] = $request->file('photo')
-                    ->store("public/users/$user->id");
-            }
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            // ...
+            'nationality' => 'required',
+            'program_01' => 'required',
+            'program_02' => 'required',
+            'program_03' => 'required',
+            // ...
+            'diploma' => 'required_without:diploma_old',
+            'diploma_old' => 'required_without:diploma',
+            // ...
+        ]);
+        $data = $request->all();
+        //
+        if ($request->has('photo')) {
+            $data['photo'] = $request->file('photo')
+                ->store("public/users/$user->id");
+        } elseif ($request->has('photo_old')) {
+            $data['photo'] = $request->photo_old;
+        }
+        //
+        if ($request->has('diploma')) {
             $data['diploma'] = $request->file('diploma')
                 ->store("public/users/$user->id");
-            //
-            $application = Application::create([
-                'user_id' => $user->id,
-                'data' => $data,
-                'verified' => 0,
-            ]);
-            //
-            DB::table('application_program')->insert([
-                'application_id' => $application->id,
-                'program_id' => $request->program_01,
-                'priority' => 1,
-            ]);
-            DB::table('application_program')->insert([
-                'application_id' => $application->id,
-                'program_id' => $request->program_02,
-                'priority' => 2,
-            ]);
-            DB::table('application_program')->insert([
-                'application_id' => $application->id,
-                'program_id' => $request->program_03,
-                'priority' => 3,
-            ]);
+        } elseif ($request->has('diploma_old')) {
+            $data['diploma'] = $request->diploma_old;
         }
+        //
+        $application = Application::updateOrCreate(
+            ['user_id' => $user->id],
+            ['data' => $data, 'verified' => 0]
+        );
+        //
+        DB::table('application_program')->where('application_id', $application->id)->delete();
+        DB::table('application_program')->insert([
+            'application_id' => $application->id,
+            'program_id' => $request->program_01,
+            'priority' => 1,
+        ]);
+        DB::table('application_program')->insert([
+            'application_id' => $application->id,
+            'program_id' => $request->program_02,
+            'priority' => 2,
+        ]);
+        DB::table('application_program')->insert([
+            'application_id' => $application->id,
+            'program_id' => $request->program_03,
+            'priority' => 3,
+        ]);
         return redirect('/dashboard');
     }
 

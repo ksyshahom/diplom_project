@@ -1,13 +1,13 @@
 services:
   mysql:
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql:nocopy
   nginx:
     volumes:
-      - laravel-repo:/data/www/app
+      - laravel-repo:/data/www/app:nocopy
   php:
     volumes:
-      - laravel-repo:/data/www/app
+      - laravel-repo:/data/www/app:nocopy
 
 volumes:
   mysql-data:

@@ -92,7 +92,7 @@
         ...
         <hr>
         <label>A color passport-style photo<br>
-            @if($user->app)
+            @if($user->app && isset($user->app->data['photo']))
                 <div>
                     <p>Ранее загруженное:</p>
                     <img src="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}" alt="" width="200">

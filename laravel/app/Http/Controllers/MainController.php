@@ -8,6 +8,8 @@ class MainController extends Controller
 {
     public function index() {
         $page = Page::where('url', '/')->first();
-        return view('index', compact('page'));
+//        $view = 'index';
+        $view = '_bs/index';
+        return view($view, compact('page'));
     }
 }

@@ -48,14 +48,14 @@ Route::middleware([isAuth::class])->group(function () {
     // [+] Выход из личного кабинета.
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-    // [] Главная страница личного кабинета.
+    // [+] Главная страница личного кабинета.
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // [] Абитуриент.
     Route::middleware([isEnrollee::class])->group(function () {
         // [+] Абитуриент: Страница создания заявки.
-        // Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
-        // Повторная отправка заявки происходит также на этой странице.
+        // [] Отправленную заявку абитуриент сможет просмотреть здесь (и статус, и содержание).
+        // [+] Повторная отправка заявки происходит также на этой странице.
         Route::get('/app', [AppController::class, 'index']);
         // [+] Абитуриент: Отправка заявки.
         Route::post('/app', [AppController::class, 'send']);
@@ -64,10 +64,10 @@ Route::middleware([isAuth::class])->group(function () {
 
         // [] Абитуриент: Список собеседований по каждой программе.
         Route::get('/interview', [InterviewController::class, 'index']);
-        // [] Абитуриент: Выбор даты собеседования. Если два одинаковых времени - первый преподаватель по алфавиту.
-        // Тут происходит выбор часового пояса.
+        // [+] Абитуриент: Выбор даты собеседования. Если два одинаковых времени - первый преподаватель по алфавиту.
+        // [+] Тут происходит выбор часового пояса.
         Route::get('/interview/{program}', [InterviewController::class, 'item']);
-        // Абитуриент: Запись на собеседование.
+        // [+] Абитуриент: Запись на собеседование.
         Route::post('/interview/{program}', [InterviewController::class, 'signUp']);
     });
 
@@ -101,7 +101,7 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/profile', [ProfileController::class, 'edit']);
 
         // [+] Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
-        // На этой же страница форма ТОЛЬКО для добавления нового интервала.
+        // [+] На этой же страница форма ТОЛЬКО для добавления нового интервала.
         Route::get('/schedule', [ScheduleController::class, 'index']);
         // [+] Преподаватель: Добавление нового интервала.
         Route::post('/schedule', [ScheduleController::class, 'add']);

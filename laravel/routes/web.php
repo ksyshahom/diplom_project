@@ -69,6 +69,8 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/interview/{program}', [InterviewController::class, 'item']);
         // [+] Абитуриент: Запись на собеседование.
         Route::post('/interview/{program}', [InterviewController::class, 'signUp']);
+        // [+] Абитуриент: Отменить запись на собеседование.
+        Route::get('/interview/{program}/cancel', [InterviewController::class, 'cancel']);
     });
 
     // [+] Администратор.

@@ -113,4 +113,20 @@ class InterviewController extends Controller
         ]);
         return redirect('/interview?timezone=' . rawurlencode($request->timezone));
     }
+
+    public function cancel(Request $request, Program $program)
+    {
+        $user = Auth::user();
+        $applicationProgram = DB::table('application_program')
+            ->where('application_id', $user->app->id)
+            ->where('program_id', $program->id)
+            ->first();
+        $interview = Interview::where('application_program_id', $applicationProgram->id)->first();
+        if ($interview) {
+            if ($interview->schedule->start_timestamp > time()) {
+                $interview->delete();
+            }
+        }
+        return back();
+    }
 }

@@ -50,6 +50,9 @@
                         </li>
                     @endif
                 </ul>
+                @if($interviews[$applicationProgramRow->id]->schedule->start_timestamp > time())
+                    <a href="/interview/{{ $applicationProgramRow->program_id }}/cancel">Отменить запись на собеседование</a>
+                @endif
             @else
                 <a href="/interview/{{ $applicationProgramRow->program_id }}?timezone={{ rawurlencode(request('timezone')) }}"
                    target="_blank">Записаться на интервью</a>

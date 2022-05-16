@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Interval;
+use App\Models\Interview;
+use App\Models\Program;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -44,13 +48,38 @@ class ScheduleController extends Controller
         return back();
     }
 
-    public function item(Request $request)
+    public function item(Request $request, Schedule $schedule)
     {
-        //
+        $interview = Interview::where('schedule_id', $schedule->id)->first();
+        $applicationProgram = DB::table('application_program')
+            ->where('id', $interview->application_program_id)
+            ->first();
+        $application = Application::where('id', $applicationProgram->application_id)->first();
+        $program = Program::where('id', $applicationProgram->program_id)->first();
+        $enrollee = User::where('id', $application->user_id)->first();
+        return view(
+            'schedule/item',
+            compact('interview', 'enrollee', 'schedule', 'program', 'application')
+        );
     }
 
-    public function editItem(Request $request)
+    public function editItem(Request $request, Schedule $schedule)
     {
-        //
+        $request->validate([
+            'conference_link' => 'required',
+            'mark_value' => 'nullable|integer|min:0|max:100',
+        ]);
+        $interview = Interview::where('schedule_id', $schedule->id)->first();
+        $interview->conference_link = $request->conference_link;
+
+        if ($request->filled('mark_value')) {
+            $interview->mark_value = $request->mark_value;
+        }
+        if ($request->filled('mark_comment')) {
+            $interview->mark_comment = $request->mark_comment;
+        }
+
+        $interview->save();
+        return back();
     }
 }

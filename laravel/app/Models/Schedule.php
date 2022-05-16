@@ -44,7 +44,7 @@ class Schedule extends Model
     /**
      * @return  \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function hsaInterview(): Attribute
+    public function hasInterview(): Attribute
     {
         return Attribute::make(
             get: fn() => is_null($this->interview) === false,

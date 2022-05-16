@@ -13,7 +13,7 @@ class Interval extends Model
     public function name(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->from . ' - ' . $this->to,
+            get: fn() => $this->from . '-' . $this->to,
         );
     }
 }

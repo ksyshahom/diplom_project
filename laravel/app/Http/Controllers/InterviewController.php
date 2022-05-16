@@ -34,8 +34,7 @@ class InterviewController extends Controller
         $applicationProgramIds = $applicationProgramRows->pluck('id')->toArray();
         $interviews = Interview::whereIn('application_program_id', $applicationProgramIds)
             ->get()
-            ->keyBy('application_program_id')
-            ->toArray();
+            ->keyBy('application_program_id');
         //
         return view(
             'interview/index',
@@ -85,7 +84,6 @@ class InterviewController extends Controller
             ->get()
             ->pluck('teacher_id')
             ->toArray();
-//        dd($programTeacher, $date, $intervalId);
         $schedule = Schedule::distinct()
             ->select('schedule.id')
             ->leftJoin('interviews', 'interviews.schedule_id', 'schedule.id')
@@ -95,7 +93,6 @@ class InterviewController extends Controller
             ->where('interval_id', $intervalId)
             ->first();
         //
-//        dd($applicationProgram, $schedule, $applicationProgram->id, $schedule->id);
         Interview::create([
             'application_program_id' => $applicationProgram->id,
             'schedule_id' => $schedule->id,

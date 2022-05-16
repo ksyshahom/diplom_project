@@ -57,11 +57,25 @@ class InterviewController extends Controller
             ->whereNull('interviews.id')
             ->whereIn('teacher_id', $programTeacher)
             ->get()
-            ->groupBy('date');
+            ->groupBy('date')
+            ->toArray();
+        if ($request->filled('timezone')) {
+            $timezoneSchedule = [];
+            foreach ($schedule as $date => $scheduleItems) {
+                foreach ($scheduleItems as $scheduleItem) {
+                    $data = $scheduleItem;
+                    $data['originalDate'] = $data['date'];
+                    $data['timestamp'] = $scheduleItem['start_timestamp'] + $timezones[request('timezone')]['offset'] - 10800;
+                    $data['timezoneDate'] = date('Y-m-d', $data['timestamp']);
+                    $data['timezoneTime'] = date('H:i', $data['timestamp']);
+                    $timezoneSchedule[$data['timezoneDate']][] = $data;
+                }
+            }
+        }
         //
         return view(
             'interview/item',
-            compact('timezones', 'schedule')
+            compact('timezones', 'timezoneSchedule')
         );
     }
 

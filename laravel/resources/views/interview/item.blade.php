@@ -39,14 +39,14 @@
         <form method="POST" enctype="multipart/form-data">
             @csrf
             <table>
-                @foreach($schedule as $date => $scheduleItems)
+                @foreach($timezoneSchedule as $timezoneDate => $timezoneScheduleItems)
                     <tr>
-                        <th>{{ $date }}</th>
+                        <th>{{ $timezoneDate }}</th>
                         <td>
-                            @foreach ($scheduleItems as $scheduleItem)
+                            @foreach ($timezoneScheduleItems as $timezoneScheduleItem)
                                 <label>
-                                    <input value="{{ $date }}_{{ $scheduleItem->interval_id }}"
-                                           type="radio" name="interval_id" required> {{ date('H:i', $scheduleItem->start_timestamp + $timezones[request('timezone')]['offset'] - 10800) }}<br>
+                                    <input value="{{ $timezoneScheduleItem['originalDate'] }}_{{ $timezoneScheduleItem['interval_id'] }}"
+                                           type="radio" name="interval_id" required> {{ $timezoneScheduleItem['timezoneTime'] }}<br>
                                 </label>
                             @endforeach
                         </td>

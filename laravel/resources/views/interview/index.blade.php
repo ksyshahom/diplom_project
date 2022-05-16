@@ -29,19 +29,25 @@
         @foreach($applicationProgramRows as $applicationProgramRow)
             <p>Программа: {{ $programs[$applicationProgramRow->program_id]['name'] }}</p>
             @if(isset($interviews[$applicationProgramRow->id]))
+                @php
+                    $timestamp = $interviews[$applicationProgramRow->id]->schedule->start_timestamp + $timezones[request('timezone')]['offset'] - 10800;
+                    $teacherEmail = $interviews[$applicationProgramRow->id]->schedule->teacher->user->email;
+                @endphp
                 <ul>
                     <li>Date: {{ $interviews[$applicationProgramRow->id]->schedule->date }}</li>
+                    <li>Date local: {{ date('Y-m-d', $timestamp) }}</li>
                     <li>Time: {{ $interviews[$applicationProgramRow->id]->schedule->interval->from }}</li>
+                    <li>Time local: {{ date('H:i', $timestamp) }}</li>
                     <li>Teacher: {{ $interviews[$applicationProgramRow->id]->schedule->teacher->user->fullName }}</li>
-                    <li>Teacher e-mail: {{ $interviews[$applicationProgramRow->id]->schedule->teacher->user->email }}</li>
+                    <li>Teacher e-mail: <a href="{{ $teacherEmail }}">{{ $teacherEmail }}</a></li>
+                    @if($interviews[$applicationProgramRow->id]->conference_link)
+                        <li>Link to conference: <a href="{{ $interviews[$applicationProgramRow->id]->conference_link }}" target="_blank">{{ $interviews[$applicationProgramRow->id]->conference_link }}</a></li>
+                    @endif
                     @if($interviews[$applicationProgramRow->id]->schedule->teacher->contacts)
                         <li>
                             <p>Teacher additional contacts:</p>
                             {!! nl2br($interviews[$applicationProgramRow->id]->schedule->teacher->contacts) !!}
                         </li>
-                    @endif
-                    @if($interviews[$applicationProgramRow->id]->conference_link)
-                        <li>Link to conference: <a href="{{ $interviews[$applicationProgramRow->id]->conference_link }}" target="_blank">{{ $interviews[$applicationProgramRow->id]->conference_link }}</a></li>
                     @endif
                 </ul>
             @else

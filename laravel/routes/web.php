@@ -99,11 +99,11 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/profile', [ProfileController::class, 'index']);
         Route::post('/profile', [ProfileController::class, 'edit']);
 
-        // [] Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
+        // [+] Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
         // На этой же страница форма ТОЛЬКО для добавления нового интервала.
         Route::get('/schedule', [ScheduleController::class, 'index']);
-        // Преподаватель: Добавление нового интервала.
-        Route::post('/schedule', [ScheduleController::class, 'edit']);
+        // [+] Преподаватель: Добавление нового интервала.
+        Route::post('/schedule', [ScheduleController::class, 'add']);
         // Преподаватель: Подробности собеседования.
         Route::get('/schedule/{schedule}', [ScheduleController::class, 'item']);
         // Преподаватель: Редактирование собеседования.

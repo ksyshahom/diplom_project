@@ -24,7 +24,7 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         $request->validate([
-            'programs' => 'array|required|min:1',
+            'programs' => 'required|array|min:1',
         ]);
         $teacher = Auth::user()->teacher;
         if ($request->filled('contacts')) {

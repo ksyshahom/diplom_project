@@ -83,7 +83,9 @@ class AppController extends Controller
     {
         $user = Auth::user();
         if ($user->app) {
-            $applicationProgramRows = DB::table('application_program')->where('application_id', $user->app->id)->get();
+            $applicationProgramRows = DB::table('application_program')
+                ->where('application_id', $user->app->id)
+                ->get();
             $applicationProgramIds = $applicationProgramRows->pluck('id')->toArray();
             DB::table('interviews')->whereIn('application_program_id', $applicationProgramIds)->delete();
             DB::table('application_program')->where('application_id', $user->app->id)->delete();

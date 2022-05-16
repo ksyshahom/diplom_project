@@ -36,7 +36,26 @@
     </form>
     <hr>
     @if (request()->filled('timezone'))
-        <p>...</p>
+        <form method="POST" enctype="multipart/form-data">
+            @csrf
+            <table>
+                @foreach($schedule as $date => $scheduleItems)
+                    <tr>
+                        <th>{{ $date }}</th>
+                        <td>
+                            @foreach ($scheduleItems as $scheduleItem)
+                                <label>
+                                    <input value="{{ $date }}_{{ $scheduleItem->interval_id }}"
+                                           type="radio" name="interval_id" required> {{ date('H:i', $scheduleItem->start_timestamp + $timezones[request('timezone')]['offset'] - 10800) }}<br>
+                                </label>
+                            @endforeach
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            <br>
+            <button>Записаться на собеседование</button>
+        </form>
     @endif
 </main>
 </body>

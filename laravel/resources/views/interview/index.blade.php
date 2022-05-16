@@ -31,7 +31,7 @@
             @if(isset($interviews[$applicationProgramRow->id]))
                 ...
             @else
-                <a href="/interview/{{ $applicationProgramRow->program_id }}?timezone={{ urlencode(request('timezone')) }}"
+                <a href="/interview/{{ $applicationProgramRow->program_id }}?timezone={{ rawurlencode(request('timezone')) }}"
                    target="_blank">Записаться на интервью</a>
             @endif
             <hr>

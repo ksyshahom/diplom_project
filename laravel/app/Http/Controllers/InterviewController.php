@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Interview;
 use App\Models\Program;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Services\Timezones;
 use Illuminate\Support\Facades\Auth;
@@ -45,14 +46,60 @@ class InterviewController extends Controller
     public function item(Request $request, Program $program)
     {
         $timezones = Timezones::getList();
+        //
+        $programTeacher = DB::table('program_teacher')
+            ->where('program_id', $program->id)
+            ->get()
+            ->pluck('teacher_id')
+            ->toArray();
+        $schedule = Schedule::distinct()
+            ->select('date', 'interval_id', 'start_timestamp')
+            ->leftJoin('interviews', 'interviews.schedule_id', 'schedule.id')
+            ->whereNull('interviews.id')
+            ->whereIn('teacher_id', $programTeacher)
+            ->get()
+            ->groupBy('date');
+        //
         return view(
             'interview/item',
-            compact('timezones')
+            compact('timezones', 'schedule')
         );
     }
 
-    public function signUp(Request $request)
+    public function signUp(Request $request, Program $program)
     {
+        $request->validate([
+            'interval_id' => 'required',
+        ]);
+        $user = Auth::user();
         //
+        list($date, $intervalId) = explode('_', $request->interval_id);
+        //
+        $applicationProgram = DB::table('application_program')
+            ->where('application_id', $user->app->id)
+            ->where('program_id', $program->id)
+            ->first();
+        //
+        $programTeacher = DB::table('program_teacher')
+            ->where('program_id', $program->id)
+            ->get()
+            ->pluck('teacher_id')
+            ->toArray();
+//        dd($programTeacher, $date, $intervalId);
+        $schedule = Schedule::distinct()
+            ->select('schedule.id')
+            ->leftJoin('interviews', 'interviews.schedule_id', 'schedule.id')
+            ->whereNull('interviews.id')
+            ->whereIn('teacher_id', $programTeacher)
+            ->where('date', $date)
+            ->where('interval_id', $intervalId)
+            ->first();
+        //
+//        dd($applicationProgram, $schedule, $applicationProgram->id, $schedule->id);
+        Interview::create([
+            'application_program_id' => $applicationProgram->id,
+            'schedule_id' => $schedule->id,
+        ]);
+        return redirect('/interview?timezone=' . rawurlencode($request->timezone));
     }
 }

@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class Interview extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'application_program_id',
+        'schedule_id',
+    ];
+
     public function schedule()
     {
         return $this->belongsTo(Schedule::class);

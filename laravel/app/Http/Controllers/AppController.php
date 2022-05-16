@@ -15,9 +15,9 @@ class AppController extends Controller
     {
         $user = Auth::user();
         $programs = Program::all();
-//        $app = Application::where('user_id', $user->id)->first();
-//        dd($app, $app->data);
-        return view('app/index', compact('user', 'programs'));
+        $view = 'app/index';
+//        $view = '_bs/app/index';
+        return view($view, compact('user', 'programs'));
     }
 
     public function send(Request $request)
@@ -91,6 +91,7 @@ class AppController extends Controller
             DB::table('application_program')->where('application_id', $user->app->id)->delete();
             Application::where('id', $user->app->id)->delete();
         }
+        return back();
     }
 
     public function item(Request $request, Application $application)

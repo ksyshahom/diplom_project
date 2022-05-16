@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
         $credentials = $request->only('email', 'password');
@@ -35,7 +35,7 @@ class AuthController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|confirmed',
+            'email' => 'required|email|confirmed',
             'password' => 'required|confirmed',
         ]);
         $user = User::where('email', $request->email)->first();

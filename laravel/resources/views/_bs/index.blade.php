@@ -36,7 +36,7 @@
         @if ($page)
             <p>{!! $page->content !!}</p>
         @else
-            <p>Контента нет.</p>
+            <p>No content here.</p>
         @endif
     </div>
 

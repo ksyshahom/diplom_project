@@ -14,17 +14,17 @@
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
             @if (auth()->user())
-                <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
+                <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
                     <img height="80" src="./static/img/logo-eng-small.png" alt="logo-eng">
-                </a>
+                </div>
                 <div class="col-md-3 text-end">
                     <a class="btn btn-border-blue me-2" href="/dashboard">Dashboard</a>
                     <a class="btn btn-all-blue" href="/auth/logout">Logout</a>
                 </div>
             @else
-                <a href="/auth" class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
+                <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
                     <img height="80" src="./static/img/logo-eng-small.png" alt="logo-eng">
-                </a>
+                </div>
                 <div class="col-md-3 text-end">
                     <a class="btn btn-all-blue" href="/auth">Login/Sign-up</a>
                 </div>

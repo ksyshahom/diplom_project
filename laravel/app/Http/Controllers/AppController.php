@@ -97,7 +97,12 @@ class AppController extends Controller
 
     public function item(Request $request, Application $application)
     {
-        return view('app/item', compact('application'));
+//        $view = 'app/item';
+        $view = '_bs/app/item';
+        return view(
+            $view,
+            compact('application')
+        );
     }
 
     public function appList(Request $request)

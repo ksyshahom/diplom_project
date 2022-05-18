@@ -34,6 +34,12 @@ class AppController extends Controller
                 'program_01' => 'required',
                 'program_02' => 'required',
                 'program_03' => 'required',
+                'native_lang' => 'required',
+                'gender' => 'required',
+                'mobile_phone_code' => 'required',
+                'mobile_phone' => 'required',
+                'year' => 'required',
+                'housing' => 'required',
                 // ...
                 'diploma' => 'required_without:diploma_old',
                 'diploma_old' => 'required_without:diploma',

@@ -73,7 +73,7 @@
                     <label for="mn" class="col-3 col-form-label">Middle name</label>
                     <div class="col-9">
                         <input class="form-control" type="text" id="ln" name="middle_name"
-                               value="{{ old('middle_name') ?: ($user->app ? $user->app->data['middle_name'] : $user->middle_name) }}">
+                               value="{{ old('middle_name') ?: ($user->app ? $user->app->data['middle_name'] : ($user->middle_name ?: '')) }}">
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                 <div class="mb-3 row">
                     <label for="nationality" class="col-3 col-form-label">Nationality <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="text" name="nationality" id="nationality" required
+                        <input class="form-control" type="text" id="nationality" name="nationality" required
                                value="{{ old('nationality') ?: ($user->app ? $user->app->data['nationality'] : '') }}">
                     </div>
                 </div>
@@ -155,44 +155,53 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="native-lang" class="col-3 col-form-label">Native language <span>*</span></label>
+                    <label for="native_lang" class="col-3 col-form-label">Native language <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="native-lang" class="form-control">
+                        <input type="text" id="native_lang" class="form-control" name="native_lang" required
+                               value="{{ old('native_lang') ?: ($user->app && $user->app->data['native_lang'] ? $user->app->data['native_lang'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label for="gender" class="col-3 col-form-label">Gender <span>*</span></label>
                     <div class="col-9">
-                        <select class="form-select" id="gender">
-                            <option selected disabled value="">Choose...</option>
-                            <option>Male</option>
-                            <option>Female</option>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value>Choose...</option>
+                            <option {{ ((old('gender') ?: ($user->app ? $user->app->data['gender'] : '')) == 'Male') ? ' selected ' : '' }}
+                                    value="Male">Male</option>
+                            <option {{ ((old('gender') ?: ($user->app ? $user->app->data['gender'] : '')) == 'Female') ? ' selected ' : '' }}
+                                    value="Female">Female</option>
                         </select>
                     </div>
                 </div>
 
                 <p class="mt-3">Home phone number</p>
                 <div class="mb-3 row">
-                    <label for="home-phone-code" class="col-3 col-form-label">Country code</label>
+                    <label for="home_phone_code" class="col-3 col-form-label">Country code</label>
                     <div class="col-2">
-                        <input type="text" id="home-phone-code" class="form-control">
+                        <input type="text" id="home_phone_code" class="form-control"
+                               placeholder="+" name="home_phone_code"
+                               value="{{ old('home_phone_code') ?: ($user->app && $user->app->data['home_phone_code'] ? $user->app->data['home_phone_code'] : '') }}">
                     </div>
-                    <label for="home-phone" class="col-3 col-form-label">Phone number</label>
+                    <label for="home_phone" class="col-3 col-form-label">Phone number</label>
                     <div class="col-4">
-                        <input type="text" id="home-phone" class="form-control">
+                        <input type="text" id="home_phone" class="form-control" name="home_phone"
+                               value="{{ old('home_phone') ?: ($user->app && $user->app->data['home_phone'] ? $user->app->data['home_phone'] : '') }}">
                     </div>
                 </div>
 
                 <p class="mt-3">Mobile phone number (for WhatsApp, Telegram or Viber) <span>*</span></p>
                 <div class="mb-3 row">
-                    <label for="mobile-phone-code" class="col-3 col-form-label">Country code</label>
+                    <label for="mobile_phone_code" class="col-3 col-form-label">Country code</label>
                     <div class="col-2">
-                        <input type="text" id="mobile-phone-code" class="form-control">
+                        <input type="text" id="mobile_phone_code" class="form-control"
+                               placeholder="+" name="mobile_phone_code" required
+                               value="{{ old('mobile_phone_code') ?: ($user->app ? $user->app->data['mobile_phone_code'] : '') }}">
                     </div>
-                    <label for="mobile-phone" class="col-3 col-form-label">Phone number</label>
+                    <label for="mobile_phone" class="col-3 col-form-label">Phone number</label>
                     <div class="col-4">
-                        <input type="text" id="mobile-phone" class="form-control">
+                        <input type="text" id="mobile_phone" class="form-control" name="mobile_phone" required
+                               value="{{ old('mobile_phone') ?: ($user->app ? $user->app->data['mobile_phone'] : '') }}">
                     </div>
                 </div>
 
@@ -220,7 +229,9 @@
                 <div class="mb-3 row">
                     <label for="year" class="col-3 col-form-label">Year <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="year" class="form-control" value="2022, Fall semester">
+                        <input type="text" id="year" class="form-control"
+                               placeholder="2022, Fall semester" name="year" required
+                               value="{{ old('year') ?: ($user->app ? $user->app->data['year'] : '2022, Fall semester') }}">
                     </div>
                 </div>
 
@@ -228,12 +239,12 @@
                     <label class="col-5 col-form-label">Do you need University housing? <span>*</span></label>
                     <div class="col-7">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="housing" id="housing-yes" value="yes">
-                            <label class="form-check-label" for="housing-yes">Yes</label>
+                            <input class="form-check-input" type="radio" name="housing" id="housing_yes" value="yes" required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : '')) == 'yes') ? ' checked ' : '' }}>
+                            <label class="form-check-label" for="housing_yes">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="housing" id="housing-no" value="no">
-                            <label class="form-check-label" for="housing-no">No</label>
+                            <input class="form-check-input" type="radio" name="housing" id="housing_no" value="no" required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : 'no')) == 'no') ? ' checked ' : '' }}>
+                            <label class="form-check-label" for="housing_no">No</label>
                         </div>
                     </div>
                 </div>

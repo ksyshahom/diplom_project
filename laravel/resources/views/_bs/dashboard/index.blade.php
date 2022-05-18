@@ -67,5 +67,8 @@
     </div>
 
 </main>
+@if ($user->role_id == 1)
+    @include('_elements.chat')
+@endif
 </body>
 </html>

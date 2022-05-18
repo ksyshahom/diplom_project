@@ -28,7 +28,8 @@ class AppController extends Controller
             $request->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                // ...
+                'birth_date' => 'required|date',
+                'birth_place' => 'required',
                 'nationality' => 'required',
                 'program_01' => 'required',
                 'program_02' => 'required',

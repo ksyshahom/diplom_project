@@ -73,7 +73,7 @@
             <div class="mb-3 row">
                 <label for="mn" class="col-3 col-form-label">Middle name</label>
                 <div class="col-9">
-                    <input class="form-control" type="text" name="middle_name" id="ln"
+                    <input class="form-control" type="text" id="ln" name="middle_name"
                            value="{{ old('middle_name') ?: ($user->app ? $user->app->data['middle_name'] : $user->middle_name) }}">
                 </div>
             </div>
@@ -81,24 +81,24 @@
             <div class="mb-3 row">
                 <label for="ln" class="col-3 col-form-label">Last name <span>*</span></label>
                 <div class="col-9">
-                    <input class="form-control" type="text" name="last_name" id="mn" required
+                    <input class="form-control" type="text" id="mn" name="last_name" required
                            value="{{ old('last_name') ?: ($user->app ? $user->app->data['last_name'] : $user->last_name) }}">
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <label for="birth-date" class="col-3 col-form-label">Date of birth <span>*</span></label>
+                <label for="birth_date" class="col-3 col-form-label">Date of birth <span>*</span></label>
                 <div class="col-9">
-                    <input type="date" id="birth-date" class="form-control">
+                    <input class="form-control" type="date" id="birth_date"
+                           name="birth_date" value="{{ old('birth_date') ?: ($user->app ? $user->app->data['birth_date'] : '') }}" required>
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <label for="birth-place" class="col-3 col-form-label">Place of birth <span>*</span></label>
+                <label for="birth_place" class="col-3 col-form-label">Place of birth <span>*</span></label>
                 <div class="col-9">
-                    <select class="form-select" id="birth-place">
-                        <option selected disabled value="">Choose...</option>
-                        <option>...</option>
+                    <select class="form-select" id="birth_place" name="birth_place" required>
+                        @include('_elements.countries', ['selected' => old('birth_place') ?: ($user->app ? $user->app->data['birth_place'] : '')])
                     </select>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                     <select class="form-select" id="program_01" name="program_01" required>
                         <option value>Choose...</option>
                         @foreach ($programs as $program)
-                            <option {{ (old('program_01') == $program->id || ($user->app && $user->app->data['program_01'] == $program->id)) ? ' selected ' : '' }}
+                            <option {{ ((old('program_01') ?: ($user->app ? $user->app->data['program_01'] : '')) == $program->id) ? ' selected ' : '' }}
                                     value="{{ $program->id }}">{{ $program->name }}</option>
                         @endforeach
                     </select>
@@ -134,7 +134,7 @@
                     <select class="form-select" id="program_02" name="program_02" required>
                         <option value>Choose...</option>
                         @foreach ($programs as $program)
-                            <option {{ (old('program_02') == $program->id || ($user->app && $user->app->data['program_02'] == $program->id)) ? ' selected ' : '' }}
+                            <option {{ ((old('program_02') ?: ($user->app ? $user->app->data['program_02'] : '')) == $program->id) ? ' selected ' : '' }}
                                     value="{{ $program->id }}">{{ $program->name }}</option>
                         @endforeach
                     </select>
@@ -148,7 +148,7 @@
                         <option value>Choose...</option>
                         @foreach ($programs as $program)
                             <option
-                                {{ (old('program_03') == $program->id || ($user->app && $user->app->data['program_03'] == $program->id)) ? ' selected ' : '' }}
+                                {{ ((old('program_03') ?: ($user->app ? $user->app->data['program_03'] : '')) == $program->id) ? ' selected ' : '' }}
                                 value="{{ $program->id }}">{{ $program->name }}</option>
                         @endforeach
                     </select>

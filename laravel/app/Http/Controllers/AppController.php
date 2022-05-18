@@ -15,8 +15,8 @@ class AppController extends Controller
     {
         $user = Auth::user();
         $programs = Program::all();
-        $view = 'app/index';
-//        $view = '_bs/app/index';
+//        $view = 'app/index';
+        $view = '_bs/app/index';
         return view($view, compact('user', 'programs'));
     }
 

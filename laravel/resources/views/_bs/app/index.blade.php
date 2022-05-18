@@ -36,19 +36,12 @@
         <hr>
         @if($user->app)
             @switch ($user->app->verified)
-                @case(0)
-                    <p>Статус: Заявка находится на рассмотрении.</p>
-                    @break
-                @case(1)
-                    <p>Статус: Заявка рассмотрена. Можно <a href="/interview">записаться на собеседование</a>.</p>
-                    @break
-                @case(1)
-                    <p>Статус: Заявка отклонена. Комментарий:</p>
-                    <p>{!! $user->app->comment !!}</p>
+                @case(2)
+                    <p style="font-size: 25px;"><strong>Application status:</strong> rejected.</p>
+                    <p>Reason for rejection: {!! $user->app->comment !!}</p>
+                    <p>Your application has been rejected. Please proceed to change your responses according to the Admission Officer's comment above. If you have changed your mind about applying to MISiS, you can <a href="/app/delete" class="color-blue">delete your application</a>.</p>
                     @break
             @endswitch
-        @else
-            <p>Отправить новую заявку.</p>
         @endif
         <hr>
         <p>Note that you after sending the application, it will get a check status (pending, accepted, rejected). You will be able to come back later and fix some of your responses if the application is rejected. If you have any questions please contact us via chat.</p>
@@ -123,21 +116,27 @@
             <hr>
 
             <div class="mb-3 row">
-                <label for="program1" class="col-3 col-form-label">Desired Program of Study (first priority) <span>*</span></label>
+                <label for="program_01" class="col-3 col-form-label">Desired Program of Study (first priority) <span>*</span></label>
                 <div class="col-9">
-                    <select class="form-select" id="program1">
-                        <option selected disabled value="">Choose...</option>
-                        <option>...</option>
+                    <select class="form-select" id="program_01" name="program_01" required>
+                        <option value>Choose...</option>
+                        @foreach ($programs as $program)
+                            <option {{ (old('program_01') == $program->id || ($user->app && $user->app->data['program_01'] == $program->id)) ? ' selected ' : '' }}
+                                    value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <label for="program2" class="col-3 col-form-label">Desired Program of Study (second priority) <span>*</span></label>
+                <label for="program_02" class="col-3 col-form-label">Desired Program of Study (second priority) <span>*</span></label>
                 <div class="col-9">
-                    <select class="form-select" id="program2">
-                        <option selected disabled value="">Choose...</option>
-                        <option>...</option>
+                    <select class="form-select" id="program_02" name="program_02" required>
+                        <option value>Choose...</option>
+                        @foreach ($programs as $program)
+                            <option {{ (old('program_02') == $program->id || ($user->app && $user->app->data['program_02'] == $program->id)) ? ' selected ' : '' }}
+                                    value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -145,9 +144,13 @@
             <div class="mb-3 row">
                 <label for="program3" class="col-3 col-form-label">Desired Program of Study (third priority) <span>*</span></label>
                 <div class="col-9">
-                    <select class="form-select" id="program3">
-                        <option selected disabled value="">Choose...</option>
-                        <option>...</option>
+                    <select class="form-select" id="program_03" name="program_03" required>
+                        <option value>Choose...</option>
+                        @foreach ($programs as $program)
+                            <option
+                                {{ (old('program_03') == $program->id || ($user->app && $user->app->data['program_03'] == $program->id)) ? ' selected ' : '' }}
+                                value="{{ $program->id }}">{{ $program->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -197,7 +200,14 @@
             <div class="mb-3 mt-3 row">
                 <label for="photo" class="col-3 col-form-label">A color passport-style photo</label>
                 <div class="col-9">
-                    <input class="form-control" type="file" id="photo">
+                    <input class="form-control" type="file" id="photo"
+                           name="photo" value="{{ old('photo') }}" accept="image/jpeg">
+                    @if($user->app && isset($user->app->data['photo']))
+                        <div class="mt-2 mb-2">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}" alt="" width="200">
+                            <input type="hidden" name="photo_old" value="{{ $user->app->data['photo'] }}">
+                        </div>
+                    @endif
                 </div>
                 <p style="font-size: 12px; margin-bottom: 0">A single JPEG (!!!) file: jpeg or jpg. 5 Mb max. The photograph must be in jpeg or jpg format because the Ministry of Education and Science of the Russian Federation online system does not allow us to submit photos in pdf format.</p>
             </div>
@@ -336,7 +346,11 @@
             <div class="mb-3 mt-3 row">
                 <label for="diploma" class="col-3 col-form-label">Bachelor or previous educational diploma scan <span>*</span></label>
                 <div class="col-9">
-                    <input class="form-control" type="file" id="diploma">
+                    <input class="form-control" type="file" id="diploma" name="diploma" value="{{ old('diploma') }}" accept="application/pdf">
+                    @if ($user->app)
+                        <div class="mt-2 mb-2">See file <a href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['diploma']) }}" target="_blank">here</a>.</div>
+                        <input type="hidden" name="diploma_old" value="{{ $user->app->data['diploma'] }}">
+                    @endif
                 </div>
                 <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
             </div>

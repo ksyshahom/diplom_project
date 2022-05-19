@@ -62,7 +62,7 @@
                 <div class="mb-3 row">
                     <label for="fn" class="col-3 col-form-label">First name <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="fn" name="first_name" required readonly
+                        <input class="form-control" type="text" id="fn" name="first_name" required
                                value="{{ old('first_name') ?: ($user->app ? $user->app->data['first_name'] : $user->first_name) }}">
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="mb-3 row">
                     <label for="mn" class="col-3 col-form-label">Middle name</label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="ln" name="middle_name" readonly
+                        <input class="form-control" type="text" id="ln" name="middle_name"
                                value="{{ old('middle_name') ?: ($user->app ? $user->app->data['middle_name'] : ($user->middle_name ?: '')) }}">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="mb-3 row">
                     <label for="ln" class="col-3 col-form-label">Last name <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="mn" name="last_name" required readonly
+                        <input class="form-control" type="text" id="mn" name="last_name" required
                                value="{{ old('last_name') ?: ($user->app ? $user->app->data['last_name'] : $user->last_name) }}">
                     </div>
                 </div>

@@ -31,9 +31,9 @@ class AppController extends Controller
                 'birth_date' => 'required|date',
                 'birth_place' => 'required',
                 'nationality' => 'required',
-                'program_01' => 'required',
-                'program_02' => 'required',
-                'program_03' => 'required',
+                'program_01' => 'required|different:program_02|different:program_03',
+                'program_02' => 'required|different:program_01|different:program_03',
+                'program_03' => 'required|different:program_01|different:program_02',
                 'native_lang' => 'required',
                 'gender' => 'required',
                 'mobile_phone_code' => 'required',
@@ -142,6 +142,11 @@ class AppController extends Controller
                 ['user_id' => $user->id],
                 ['data' => $data, 'verified' => 0]
             );
+            // ---
+            $user->first_name = $request->first_name;
+            $user->middle_name = $request->filled('middle_name') ? $request->middle_name : null;
+            $user->last_name = $request->last_name;
+            $user->save();
             // ---
             DB::table('application_program')->where('application_id', $application->id)->delete();
             DB::table('application_program')->insert([

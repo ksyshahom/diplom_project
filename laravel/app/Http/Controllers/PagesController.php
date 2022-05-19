@@ -11,7 +11,13 @@ class PagesController extends Controller
 {
     public function item(Request $request, Page $page)
     {
-        return view('pages/item', compact('page'));
+        $user = Auth::user();
+//        $view = 'pages/item';
+        $view = '_bs/pages/item';
+        return view(
+            $view,
+            compact('user', 'page')
+        );
     }
 
     public function edit(Request $request)

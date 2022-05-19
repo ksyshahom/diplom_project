@@ -36,7 +36,7 @@
                     <td>{{ $user->fullName }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <select name="role_id">
+                        <select name="role_id" required>
                             @foreach($roles as $role)
                                 <option value="{{ $role->id }}"{{ ($user->role_id == $role->id) ? ' selected' : '' }}>{{ $role->name }}</option>
                             @endforeach

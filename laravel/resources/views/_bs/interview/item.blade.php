@@ -27,6 +27,17 @@
         </div>
         <p>Please book an interview time below. Please note that the time shown below in Moscow time. If you want to see it in your local time, please choose a time zone below.</p>
 
+        @if ($errors->any())
+            <section>
+                <p>Errors:</p>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </section>
+        @endif
+
         <form>
             <div class="mb-3 row">
                 <label for="timezone" class="col-2 col-form-label">Choose a time zone:</label>

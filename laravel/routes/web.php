@@ -73,13 +73,13 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/interview/{program}/cancel', [InterviewController::class, 'cancel']);
     });
 
-    // [][+] Администратор.
+    // [F][+] Администратор.
     Route::middleware([isAdmin::class])->group(function () {
-        // [][+] Администратор: Страница редактирования ролей.
+        // [F][+] Администратор: Страница редактирования ролей.
         Route::get('/roles', [RolesController::class, 'index']);
         Route::post('/roles', [RolesController::class, 'update']);
 
-        // [][+] Администратор: Редактирование страницы (пока только главной).
+        // [F][+] Администратор: Редактирование страницы (пока только главной).
         Route::get('/pages/{page}', [PagesController::class, 'item']);
         Route::post('/pages/{page}', [PagesController::class, 'edit']);
 

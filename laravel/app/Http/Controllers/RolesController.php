@@ -13,11 +13,14 @@ class RolesController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
         $roles = Role::all();
         $users = User::where('id', '!=', Auth::user()->id)->get();
+//        $view = 'roles/index';
+        $view = '_bs/roles/index';
         return view(
-            'roles/index',
-            compact('roles', 'users')
+            $view,
+            compact('user', 'roles', 'users')
         );
     }
 

@@ -61,7 +61,7 @@
 
 <div class="mb-3 row">
     <label class="col-3">Home phone number</label>
-    <div class="col-9">{{ $app->data['home_phone_code'] && $app->data['home_phone'] ? ($app->data['home_phone_code'] . '-' . $app->data['home_phone']) : '–' }}</div>
+    <div class="col-9">{{ isset($app->data['home_phone_code']) && isset($app->data['home_phone']) ? ($app->data['home_phone_code'] . '-' . $app->data['home_phone']) : '–' }}</div>
 </div>
 
 <div class="mb-3 row">
@@ -88,30 +88,30 @@
 
 <div class="mb-3 row">
     <label class="col-3">Year</label>
-    <div class="col-9">2022, Fall semester</div>
+    <div class="col-9">{{ $app->data['year'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Do you need University housing?</label>
-    <div class="col-9">Yes</div>
+    <div class="col-9">{{ $app->data['housing'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Why you would like to enroll at NUST MISIS?</label>
-    <div class="col-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.
-    </div>
+    <div class="col-9">{{ $app->data['why_enroll'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Where and how did you learn about NUST MISIS International Master’s Programs?</label>
     <div class="col-9">
-        masterstudies.com<br>
-        postgrad.com<br>
-        Other
+        @isset($app->data['source'])
+            @foreach($app->data['source'] as $item)
+                - {{ $item }}<br>
+            @endforeach
+        @endisset
+        @isset($app->data['source_other'])
+            - Other: {{ $app->data['source_other'] }}
+        @endisset
     </div>
 </div>
 
@@ -122,108 +122,124 @@
 
 <div class="mb-3 row">
     <label class="col-3">Institution</label>
-    <div class="col-9">LISIS</div>
+    <div class="col-9">{{ $app->data['institution'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">City / Country</label>
-    <div class="col-9">The USA</div>
+    <div class="col-9">{{ $app->data['city_country'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Year (from-to)</label>
-    <div class="col-9">2018-2022</div>
+    <div class="col-9">{{ $app->data['year_from_to'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Field of study</label>
-    <div class="col-9">LISIS</div>
+    <div class="col-9">{{ $app->data['field_of_study'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Degree title</label>
-    <div class="col-9">The USA</div>
+    <div class="col-9">{{ $app->data['degree_title'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">GPA (Received / Max)</label>
-    <div class="col-9">4.5 / 5</div>
+    <div class="col-9">{{ $app->data['gpa'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Bachelor or previous educational diploma scan</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
-</div>
-
-<div class="mb-3 row">
-    <label class="col-3">Bachelor or previous educational transcripts scan</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
-</div>
-
-<div class="mb-3 row">
-    <label class="col-3">Distinctions, honors, awards, and achievements</label>
-    <div class="col-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua.
+    <div class="col-9">
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['diploma']) }}"
+           target="_blank">See file here</a>
     </div>
 </div>
 
 <div class="mb-3 row">
+    <label class="col-3">Bachelor or previous educational transcripts scan</label>
+    <div class="col-9">
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['transcripts']) }}"
+           target="_blank">See file here</a>
+    </div>
+</div>
+
+<div class="mb-3 row">
+    <label class="col-3">Distinctions, honors, awards, and achievements</label>
+    <div class="col-9">{{ $app->data['achievements'] ?? '–' }}</div>
+</div>
+
+<div class="mb-3 row">
     <label class="col-3">Scans of documents related to other achievements</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    @if (isset($app->data['achievements_doc']))
+        <div class="col-9">
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}"
+               target="_blank">See file here</a>
+        </div>
+    @endif
 </div>
 
 <p>English language proficiency</p>
 
 <div class="mb-3 row">
     <label class="col-3">Speaking</label>
-    <div class="col-9">Fluent</div>
+    <div class="col-9">{{ $app->data['speaking'] ?? '–' }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Reading</label>
-    <div class="col-9">Fluent</div>
+    <div class="col-9">{{ $app->data['reading'] ?? '–' }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Writing</label>
-    <div class="col-9">Fluent</div>
+    <div class="col-9">{{ $app->data['writing'] ?? '–' }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Statement of Purpose (1-2 pages)</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    @if (isset($app->data['sop']))
+        <div class="col-9">
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['sop']) }}"
+               target="_blank">See file here</a>
+        </div>
+    @endif
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">CV</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    @if (isset($app->data['cv']))
+        <div class="col-9">
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['cv']) }}"
+               target="_blank">See file here</a>
+        </div>
+    @endif
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Recommendation Letter #1</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    @if (isset($app->data['rl1']))
+        <div class="col-9">
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl1']) }}"
+               target="_blank">See file here</a>
+        </div>
+    @endif
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Recommendation Letter #2</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    @if (isset($app->data['rl2']))
+        <div class="col-9">
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl2']) }}"
+               target="_blank">See file here</a>
+        </div>
+    @endif
 </div>
 
 <hr>
+
 <p><strong>Visa Requirements</strong></p>
 
 <div class="mb-3 row">

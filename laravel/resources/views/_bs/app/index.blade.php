@@ -421,7 +421,7 @@
                     <label for="achievements_doc" class="col-3 col-form-label">Scans of documents related to other achievements</label>
                     <div class="col-9">
                         <input class="form-control" type="file" id="achievements_doc"
-                               value="{{ old('achievements_doc') }}" accept="application/pdf">
+                               name="achievements_doc" value="{{ old('achievements_doc') }}" accept="application/pdf">
                         @if ($user->app)
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="achievements_doc_old" value="{{ $user->app->data['achievements_doc'] }}">
@@ -436,19 +436,23 @@
                     <label class="col-3 col-form-label py-0">Speaking</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-fluent" value="Fluent">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-fluent"
+                                   value="Fluent"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-good" value="Good">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-good"
+                                   value="Good"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-fair" value="Fair">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-fair"
+                                   value="Fair"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-poor" value="Poor">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-poor"
+                                   value="Poor"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-poor">Poor</label>
                         </div>
                     </div>
@@ -458,19 +462,23 @@
                     <label class="col-3 col-form-label py-0">Reading</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-fluent" value="Fluent">
+                            <input class="form-check-input" type="radio" name="reading" id="r-fluent"
+                                   value="Fluent"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-good" value="Good">
+                            <input class="form-check-input" type="radio" name="reading" id="r-good"
+                                   value="Good"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-fair" value="Fair">
+                            <input class="form-check-input" type="radio" name="reading" id="r-fair"
+                                   value="Fair"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-poor" value="Poor">
+                            <input class="form-check-input" type="radio" name="reading" id="r-poor"
+                                   value="Poor"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Poor') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-poor">Poor</label>
                         </div>
                     </div>
@@ -480,19 +488,23 @@
                     <label class="col-3 col-form-label py-0">Writing</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-fluent" value="Fluent">
+                            <input class="form-check-input" type="radio" name="writing" id="w-fluent"
+                                   value="Fluent"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-good" value="Good">
+                            <input class="form-check-input" type="radio" name="writing" id="w-good"
+                                   value="Good"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-fair" value="Fair">
+                            <input class="form-check-input" type="radio" name="writing" id="w-fair"
+                                   value="Fair"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-poor" value="Poor">
+                            <input class="form-check-input" type="radio" name="writing" id="w-poor"
+                                   value="Poor"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Poor') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-poor">Poor</label>
                         </div>
                     </div>

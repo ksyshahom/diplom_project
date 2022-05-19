@@ -250,9 +250,11 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="why-enroll" class="col-3 col-form-label">Briefly tell us why you would like to enroll at NUST MISIS <span>*</span></label>
+                    <label for="why_enroll" class="col-3 col-form-label">Briefly tell us why you would like to enroll at NUST MISIS <span>*</span></label>
                     <div class="col-9">
-                        <textarea class="form-control" id="why-enroll" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" id="why_enroll"
+                                  name="why_enroll" required
+                        >{{ old('why_enroll') ?: ($user->app ? $user->app->data['why_enroll'] : '') }}</textarea>
                     </div>
                 </div>
 
@@ -260,51 +262,69 @@
                     <label class="col-3 col-form-label">Where and how did you learn about NUST MISIS International Master’s Programs? We highly appreciate your effort to share this information with us <span>*</span></label>
                     <div class="col-9 mt-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="masterstudies">
+                            <input class="form-check-input" type="checkbox" id="masterstudies"
+                                   {{ in_array('masterstudies.com', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="masterstudies.com">
                             <label class="form-check-label" for="masterstudies">
                                 masterstudies.com
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="masterportals">
+                            <input class="form-check-input" type="checkbox" id="masterportals"
+                                   {{ in_array('masterportals.com', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="masterportals.com">
                             <label class="form-check-label" for="masterportals">
                                 masterportals.com
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="topuniversities">
+                            <input class="form-check-input" type="checkbox" id="topuniversities"
+                                   {{ in_array('topuniversities.com', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="topuniversities.com">
                             <label class="form-check-label" for="topuniversities">
                                 topuniversities.com
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="postgrad">
+                            <input class="form-check-input" type="checkbox" id="postgrad"
+                                   {{ in_array('postgrad.com', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="postgrad.com">
                             <label class="form-check-label" for="postgrad">
                                 postgrad.com
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="misis">
+                            <input class="form-check-input" type="checkbox" id="misis"
+                                   {{ in_array('NUST MISIS website', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="NUST MISIS website">
                             <label class="form-check-label" for="misis">
                                 NUST MISIS website
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="student">
+                            <input class="form-check-input" type="checkbox" id="student"
+                                   {{ in_array('Current student', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="Current student">
                             <label class="form-check-label" for="student">
                                 Current student
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="studyinrussia">
+                            <input class="form-check-input" type="checkbox" id="studyinrussia"
+                                   {{ in_array('StudyInRussia.ru', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="StudyInRussia.ru">
                             <label class="form-check-label" for="studyinrussia">
                                 StudyInRussia.ru
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input mt-2" type="checkbox" value="" id="other">
+                            <input class="form-check-input mt-2" type="checkbox" id="other"
+                                   {{ in_array('Other', old('source') ?: ($user->app ? $user->app->data['source'] : [])) ? ' checked' : '' }}
+                                   name="source[]" value="Other">
                             <label class="form-check-label" for="other" style="width: 100%;">
-                                <input type="text" class="form-control" placeholder="Other">
+                                <input type="text" class="form-control" placeholder="Other"
+                                       name="source_other"
+                                       value="{{ old('source_other') ?: ($user->app ? $user->app->data['source_other'] : '') }}">
                             </label>
                         </div>
                     </div>

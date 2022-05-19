@@ -40,6 +40,9 @@ class AppController extends Controller
                 'mobile_phone' => 'required',
                 'year' => 'required',
                 'housing' => 'required',
+                'why_enroll' => 'required',
+                'source' => 'required_without:source_other|array|min:1',
+                'source_other' => 'required_without:source',
                 // ...
                 'diploma' => 'required_without:diploma_old',
                 'diploma_old' => 'required_without:diploma',

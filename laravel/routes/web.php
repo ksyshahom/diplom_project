@@ -51,7 +51,7 @@ Route::middleware([isAuth::class])->group(function () {
     // [F][+] Главная страница личного кабинета.
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    // [F][] Абитуриент.
+    // [F][+] Абитуриент.
     Route::middleware([isEnrollee::class])->group(function () {
         // [F][+] Абитуриент: Страница создания заявки.
         // [+] Отправленную заявку абитуриент сможет просмотреть здесь ([+] и статус, [+] и содержание).

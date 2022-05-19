@@ -422,7 +422,7 @@
                     <div class="col-9">
                         <input class="form-control" type="file" id="achievements_doc"
                                name="achievements_doc" value="{{ old('achievements_doc') }}" accept="application/pdf">
-                        @if ($user->app)
+                        @if ($user->app && isset($user->app->data['achievements_doc']))
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="achievements_doc_old" value="{{ $user->app->data['achievements_doc'] }}">
                         @endif
@@ -437,22 +437,22 @@
                     <div class="col-9">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="speaking" id="s-fluent"
-                                   value="Fluent"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fluent') ? ' checked ' : '' }}>
+                                   value="Fluent"{{ ((old('speaking') ?: (($user->app && isset($user->app->data['speaking'])) ? $user->app->data['speaking'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="speaking" id="s-good"
-                                   value="Good"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Good') ? ' checked ' : '' }}>
+                                   value="Good"{{ ((old('speaking') ?: (($user->app && isset($user->app->data['speaking'])) ? $user->app->data['speaking'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="speaking" id="s-fair"
-                                   value="Fair"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
+                                   value="Fair"{{ ((old('speaking') ?: (($user->app && isset($user->app->data['speaking'])) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="speaking" id="s-poor"
-                                   value="Poor"{{ ((old('speaking') ?: (($user->app && $user->app->data['speaking']) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
+                                   value="Poor"{{ ((old('speaking') ?: (($user->app && isset($user->app->data['speaking'])) ? $user->app->data['speaking'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="s-poor">Poor</label>
                         </div>
                     </div>
@@ -463,22 +463,22 @@
                     <div class="col-9">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reading" id="r-fluent"
-                                   value="Fluent"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Fluent') ? ' checked ' : '' }}>
+                                   value="Fluent"{{ ((old('reading') ?: (($user->app && isset($user->app->data['reading'])) ? $user->app->data['reading'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reading" id="r-good"
-                                   value="Good"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Good') ? ' checked ' : '' }}>
+                                   value="Good"{{ ((old('reading') ?: (($user->app && isset($user->app->data['reading'])) ? $user->app->data['reading'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reading" id="r-fair"
-                                   value="Fair"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Fair') ? ' checked ' : '' }}>
+                                   value="Fair"{{ ((old('reading') ?: (($user->app && isset($user->app->data['reading'])) ? $user->app->data['reading'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reading" id="r-poor"
-                                   value="Poor"{{ ((old('reading') ?: (($user->app && $user->app->data['reading']) ? $user->app->data['reading'] : '')) == 'Poor') ? ' checked ' : '' }}>
+                                   value="Poor"{{ ((old('reading') ?: (($user->app && isset($user->app->data['reading'])) ? $user->app->data['reading'] : '')) == 'Poor') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="r-poor">Poor</label>
                         </div>
                     </div>
@@ -489,22 +489,22 @@
                     <div class="col-9">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="writing" id="w-fluent"
-                                   value="Fluent"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Fluent') ? ' checked ' : '' }}>
+                                   value="Fluent"{{ ((old('writing') ?: (($user->app && isset($user->app->data['writing'])) ? $user->app->data['writing'] : '')) == 'Fluent') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="writing" id="w-good"
-                                   value="Good"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Good') ? ' checked ' : '' }}>
+                                   value="Good"{{ ((old('writing') ?: (($user->app && isset($user->app->data['writing'])) ? $user->app->data['writing'] : '')) == 'Good') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="writing" id="w-fair"
-                                   value="Fair"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Fair') ? ' checked ' : '' }}>
+                                   value="Fair"{{ ((old('writing') ?: (($user->app && isset($user->app->data['writing'])) ? $user->app->data['writing'] : '')) == 'Fair') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="writing" id="w-poor"
-                                   value="Poor"{{ ((old('writing') ?: (($user->app && $user->app->data['writing']) ? $user->app->data['writing'] : '')) == 'Poor') ? ' checked ' : '' }}>
+                                   value="Poor"{{ ((old('writing') ?: (($user->app && isset($user->app->data['writing'])) ? $user->app->data['writing'] : '')) == 'Poor') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="w-poor">Poor</label>
                         </div>
                     </div>
@@ -515,7 +515,7 @@
                     <div class="col-9">
                         <input class="form-control" type="file" id="sop"
                                name="sop" value="{{ old('sop') }}" accept="application/pdf">
-                        @if ($user->app)
+                        @if ($user->app && isset($user->app->data['sop']))
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['sop']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="sop_old" value="{{ $user->app->data['sop'] }}">
                         @endif
@@ -528,7 +528,7 @@
                     <div class="col-9">
                         <input class="form-control" type="file" id="cv"
                                name="cv" value="{{ old('cv') }}" accept="application/pdf">
-                        @if ($user->app)
+                        @if ($user->app && isset($user->app->data['cv']))
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['cv']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="cv_old" value="{{ $user->app->data['cv'] }}">
                         @endif
@@ -541,7 +541,7 @@
                     <div class="col-9">
                         <input class="form-control" type="file" id="rl1"
                                name="rl1" value="{{ old('rl1') }}" accept="application/pdf">
-                        @if ($user->app)
+                        @if ($user->app && isset($user->app->data['rl1']))
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl1']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="rl1_old" value="{{ $user->app->data['rl1'] }}">
                         @endif
@@ -554,7 +554,7 @@
                     <div class="col-9">
                         <input class="form-control" type="file" id="rl2"
                                name="rl2" value="{{ old('rl2') }}" accept="application/pdf">
-                        @if ($user->app)
+                        @if ($user->app && isset($user->app->data['rl2']))
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl2']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="rl2_old" value="{{ $user->app->data['rl2'] }}">
                         @endif

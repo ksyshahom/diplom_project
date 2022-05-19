@@ -33,7 +33,6 @@
         <div class="container h1-conteiner">
             <h1>Application</h1>
         </div>
-        <hr>
         <p>Note that you after sending the application, it will get a check status (pending, accepted, rejected). You will be able to come back later and fix some of your responses if the application is rejected. If you have any questions please contact us via chat.</p>
         @if(is_null($user->app) || ($user->app && $user->app->verified == 2))
             <form class="row mx-20p" method="POST" enctype="multipart/form-data">

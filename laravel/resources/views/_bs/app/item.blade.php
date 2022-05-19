@@ -23,14 +23,7 @@
             <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
                 <img height="80" src="/static/img/logo-eng-small.png" alt="logo-eng">
             </a>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/app" class="nav-link px-2 color-blue">Application</a></li>
-                <li><a href="/interview" class="nav-link px-2 link-dark">Interview</a></li>
-            </ul>
-            <div class="col-md-3 text-end">
-                <a class="btn btn-border-blue me-2" href="/dashboard">Dashboard</a>
-                <a class="btn btn-all-blue" href="/auth/logout">Logout</a>
-            </div>
+            @include('_elements.dashboard_menu')
         </header>
     </div>
 

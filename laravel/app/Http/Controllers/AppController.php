@@ -181,11 +181,13 @@ class AppController extends Controller
 
     public function item(Request $request, Application $application)
     {
+        $user = Auth::user();
+        //
 //        $view = 'app/item';
         $view = '_bs/app/item';
         return view(
             $view,
-            compact('application')
+            compact('application', 'user')
         );
     }
 

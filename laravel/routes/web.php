@@ -96,18 +96,18 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/app/list', [AppController::class, 'edit']);
     });
 
-    // [][+] Преподаватель.
+    // [ ][+] Преподаватель.
     Route::middleware([isTeacher::class])->group(function () {
-        // [][+] Преподаватель: Страница редактирования профиля: направления и контактные данные.
+        // [F][+] Преподаватель: Страница редактирования профиля: направления и контактные данные.
         Route::get('/profile', [ProfileController::class, 'index']);
         Route::post('/profile', [ProfileController::class, 'edit']);
 
-        // [][+] Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
+        // [ ][+] Преподаватель: Страница с расписанием преподавателя. Список уже добавленных и занятых.
         // [+] На этой же страница форма ТОЛЬКО для добавления нового интервала.
         Route::get('/schedule', [ScheduleController::class, 'index']);
         // [+] Преподаватель: Добавление нового интервала.
         Route::post('/schedule', [ScheduleController::class, 'add']);
-        // [][+] Преподаватель: Подробности собеседования.
+        // [ ][+] Преподаватель: Подробности собеседования.
         Route::get('/schedule/{schedule}', [ScheduleController::class, 'item']);
         // [+] Преподаватель: Редактирование собеседования.
         Route::post('/schedule/{schedule}', [ScheduleController::class, 'editItem']);

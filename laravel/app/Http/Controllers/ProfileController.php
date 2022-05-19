@@ -12,12 +12,15 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $programs = Program::all();
         $user = Auth::user();
-//        dd($user->teacher->programs->contains('id', 3));
+        //
+        $programs = Program::all();
+        //
+//        $view = 'profile/index';
+        $view = '_bs/profile/index';
         return view(
-            'profile/index',
-            compact('programs', 'user')
+            $view,
+            compact('user', 'programs')
         );
     }
 

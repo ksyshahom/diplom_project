@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Application extends Model
 {
@@ -46,6 +47,16 @@ class Application extends Model
                     ? Interview::whereIn('application_program_id', $applicationProgramIds)->get()
                     : collect();
             },
+        );
+    }
+
+    /**
+     * @return  \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function applicationProgram(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => DB::table ('application_program')->where('application_id', $this->id)->get(),
         );
     }
 }

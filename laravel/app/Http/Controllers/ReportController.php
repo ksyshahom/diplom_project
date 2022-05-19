@@ -11,7 +11,13 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
         $enrollees = User::where('role_id', 1)->get();
-        return view('report/index', compact('enrollees'));
+//        $view = 'report/index';
+        $view = '_bs/report/index';
+        return view(
+            $view,
+            compact('user', 'enrollees')
+        );
     }
 }

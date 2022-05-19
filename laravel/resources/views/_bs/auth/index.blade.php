@@ -95,5 +95,6 @@
         </form>
     </div>
 </div>
+@include('_elements.chat')
 </body>
 </html>

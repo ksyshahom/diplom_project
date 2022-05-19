@@ -38,6 +38,7 @@ class AppController extends Controller
                 'gender' => 'required',
                 'mobile_phone_code' => 'required',
                 'mobile_phone' => 'required',
+                'photo' => 'nullable|file',
                 'year' => 'required',
                 'housing' => 'required',
                 'why_enroll' => 'required',
@@ -49,31 +50,99 @@ class AppController extends Controller
                 'field_of_study' => 'required',
                 'degree_title' => 'required',
                 'gpa' => 'required',
-                'diploma' => 'required_without:diploma_old',
+                'diploma' => 'required_without:diploma_old|file',
                 'diploma_old' => 'required_without:diploma',
-                // ...
+                'transcripts' => 'required_without:transcripts_old|file',
+                'transcripts_old' => 'required_without:transcripts',
+                'achievements_doc' => 'nullable|file',
+                'sop' => 'nullable|file',
+                'cv' => 'nullable|file',
+                'rl1' => 'nullable|file',
+                'rl2' => 'nullable|file',
+                'citizenship' => 'required',
+                'per_city' => 'required',
+                'per_state' => 'required',
+                'per_country' => 'required',
+                'pass_country' => 'required',
+                'pass_number' => 'required',
+                'pass_from' => 'required|date',
+                'pass_to' => 'required|date',
+                'pass_scan' => 'required_without:pass_scan_old|file',
+                'pass_scan_old' => 'required_without:pass_scan',
+                'embassy_city' => 'required',
+                'embassy_state' => 'required',
+                'embassy_country' => 'required',
             ]);
             $data = $request->all();
-            //
+            // Files:
             if ($request->has('photo')) {
                 $data['photo'] = $request->file('photo')
                     ->store("public/users/$user->id");
             } elseif ($request->has('photo_old')) {
                 $data['photo'] = $request->photo_old;
             }
-            //
+            // ---
             if ($request->has('diploma')) {
                 $data['diploma'] = $request->file('diploma')
                     ->store("public/users/$user->id");
             } elseif ($request->has('diploma_old')) {
                 $data['diploma'] = $request->diploma_old;
             }
-            //
+            // ---
+            if ($request->has('transcripts')) {
+                $data['transcripts'] = $request->file('transcripts')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('transcripts_old')) {
+                $data['transcripts'] = $request->transcripts_old;
+            }
+            // ---
+            if ($request->has('achievements_doc')) {
+                $data['achievements_doc'] = $request->file('achievements_doc')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('achievements_doc_old')) {
+                $data['achievements_doc'] = $request->achievements_doc_old;
+            }
+            // ---
+            if ($request->has('sop')) {
+                $data['sop'] = $request->file('sop')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('sop_old')) {
+                $data['sop'] = $request->sop_old;
+            }
+            // ---
+            if ($request->has('cv')) {
+                $data['cv'] = $request->file('cv')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('cv_old')) {
+                $data['cv'] = $request->cv_old;
+            }
+            // ---
+            if ($request->has('rl1')) {
+                $data['rl1'] = $request->file('rl1')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('rl1_old')) {
+                $data['rl1'] = $request->rl1_old;
+            }
+            // ---
+            if ($request->has('rl2')) {
+                $data['rl2'] = $request->file('rl2')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('rl2_old')) {
+                $data['rl2'] = $request->rl2_old;
+            }
+            // ---
+            if ($request->has('pass_scan')) {
+                $data['pass_scan'] = $request->file('pass_scan')
+                    ->store("public/users/$user->id");
+            } elseif ($request->has('pass_scan_old')) {
+                $data['pass_scan'] = $request->pass_scan_old;
+            }
+            // DB:
             $application = Application::updateOrCreate(
                 ['user_id' => $user->id],
                 ['data' => $data, 'verified' => 0]
             );
-            //
+            // ---
             DB::table('application_program')->where('application_id', $application->id)->delete();
             DB::table('application_program')->insert([
                 'application_id' => $application->id,
@@ -90,6 +159,7 @@ class AppController extends Controller
                 'program_id' => $request->program_03,
                 'priority' => 3,
             ]);
+            // ---
         }
         return redirect('/dashboard');
     }

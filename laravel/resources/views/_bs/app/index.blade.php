@@ -88,8 +88,8 @@
                 <div class="mb-3 row">
                     <label for="birth_date" class="col-3 col-form-label">Date of birth <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="date" id="birth_date"
-                               name="birth_date" value="{{ old('birth_date') ?: ($user->app ? $user->app->data['birth_date'] : '') }}" required>
+                        <input class="form-control" type="date" id="birth_date" name="birth_date" required
+                               value="{{ old('birth_date') ?: ($user->app ? $user->app->data['birth_date'] : '') }}">
                     </div>
                 </div>
 
@@ -239,11 +239,13 @@
                     <label class="col-5 col-form-label">Do you need University housing? <span>*</span></label>
                     <div class="col-7">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="housing" id="housing_yes" value="yes" required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : '')) == 'yes') ? ' checked ' : '' }}>
+                            <input class="form-check-input" type="radio" name="housing" id="housing_yes" value="yes"
+                                   required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : '')) == 'yes') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="housing_yes">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="housing" id="housing_no" value="no" required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : 'no')) == 'no') ? ' checked ' : '' }}>
+                            <input class="form-check-input" type="radio" name="housing" id="housing_no" value="no"
+                                   required{{ ((old('housing') ?: ($user->app ? $user->app->data['housing'] : 'no')) == 'no') ? ' checked ' : '' }}>
                             <label class="form-check-label" for="housing_no">No</label>
                         </div>
                     </div>
@@ -252,8 +254,7 @@
                 <div class="mb-3 row">
                     <label for="why_enroll" class="col-3 col-form-label">Briefly tell us why you would like to enroll at NUST MISIS <span>*</span></label>
                     <div class="col-9">
-                        <textarea class="form-control" rows="3" id="why_enroll"
-                                  name="why_enroll" required
+                        <textarea class="form-control" rows="3" id="why_enroll" name="why_enroll" required
                         >{{ old('why_enroll') ?: ($user->app ? $user->app->data['why_enroll'] : '') }}</textarea>
                     </div>
                 </div>
@@ -386,7 +387,8 @@
                 <div class="mb-3 mt-3 row">
                     <label for="diploma" class="col-3 col-form-label">Bachelor or previous educational diploma scan <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="diploma" name="diploma" value="{{ old('diploma') }}" accept="application/pdf">
+                        <input class="form-control" type="file" id="diploma"
+                               name="diploma" value="{{ old('diploma') }}" accept="application/pdf">
                         @if ($user->app)
                             <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['diploma']) }}" target="_blank">here</a>.</div>
                             <input type="hidden" name="diploma_old" value="{{ $user->app->data['diploma'] }}">
@@ -398,7 +400,11 @@
                 <div class="mb-3 mt-3 row">
                     <label for="transcripts" class="col-3 col-form-label">Bachelor or previous educational transcripts scan <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="transcripts">
+                        <input class="form-control" type="file" id="transcripts" name="transcripts" value="{{ old('transcripts') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['transcripts']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="transcripts_old" value="{{ $user->app->data['transcripts'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -406,14 +412,20 @@
                 <div class="mb-3 row">
                     <label for="achievements" class="col-3 col-form-label">Please indicate your distinctions, honors, awards, and achievements</label>
                     <div class="col-9">
-                        <textarea class="form-control" id="achievements" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" id="achievements" name="achievements"
+                        >{{ old('achievements') ?: ($user->app ? $user->app->data['achievements'] : '') }}</textarea>
                     </div>
                 </div>
 
                 <div class="mb-3 mt-3 row">
-                    <label for="achievements-doc" class="col-3 col-form-label">Scans of documents related to other achievements</label>
+                    <label for="achievements_doc" class="col-3 col-form-label">Scans of documents related to other achievements</label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="achievements-doc">
+                        <input class="form-control" type="file" id="achievements_doc"
+                               value="{{ old('achievements_doc') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="achievements_doc_old" value="{{ $user->app->data['achievements_doc'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -424,19 +436,19 @@
                     <label class="col-3 col-form-label py-0">Speaking</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-fluent" value="yes">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-fluent" value="Fluent">
                             <label class="form-check-label" for="s-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-good" value="no">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-good" value="Good">
                             <label class="form-check-label" for="s-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-fair" value="no">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-fair" value="Fair">
                             <label class="form-check-label" for="s-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="speaking" id="s-poor" value="no">
+                            <input class="form-check-input" type="radio" name="speaking" id="s-poor" value="Poor">
                             <label class="form-check-label" for="s-poor">Poor</label>
                         </div>
                     </div>
@@ -446,19 +458,19 @@
                     <label class="col-3 col-form-label py-0">Reading</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-fluent" value="yes">
+                            <input class="form-check-input" type="radio" name="reading" id="r-fluent" value="Fluent">
                             <label class="form-check-label" for="r-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-good" value="no">
+                            <input class="form-check-input" type="radio" name="reading" id="r-good" value="Good">
                             <label class="form-check-label" for="r-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-fair" value="no">
+                            <input class="form-check-input" type="radio" name="reading" id="r-fair" value="Fair">
                             <label class="form-check-label" for="r-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="reading" id="r-poor" value="no">
+                            <input class="form-check-input" type="radio" name="reading" id="r-poor" value="Poor">
                             <label class="form-check-label" for="r-poor">Poor</label>
                         </div>
                     </div>
@@ -468,19 +480,19 @@
                     <label class="col-3 col-form-label py-0">Writing</label>
                     <div class="col-9">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-fluent" value="yes">
+                            <input class="form-check-input" type="radio" name="writing" id="w-fluent" value="Fluent">
                             <label class="form-check-label" for="w-fluent">Fluent</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-good" value="no">
+                            <input class="form-check-input" type="radio" name="writing" id="w-good" value="Good">
                             <label class="form-check-label" for="w-good">Good</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-fair" value="no">
+                            <input class="form-check-input" type="radio" name="writing" id="w-fair" value="Fair">
                             <label class="form-check-label" for="w-fair">Fair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="writing" id="w-poor" value="no">
+                            <input class="form-check-input" type="radio" name="writing" id="w-poor" value="Poor">
                             <label class="form-check-label" for="w-poor">Poor</label>
                         </div>
                     </div>
@@ -489,7 +501,12 @@
                 <div class="mb-3 mt-3 row">
                     <label for="sop" class="col-3 col-form-label">Statement of Purpose (1-2 pages)</label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="sop">
+                        <input class="form-control" type="file" id="sop"
+                               name="sop" value="{{ old('sop') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['sop']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="sop_old" value="{{ $user->app->data['sop'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -497,7 +514,12 @@
                 <div class="mb-3 mt-3 row">
                     <label for="cv" class="col-3 col-form-label">CV</label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="cv">
+                        <input class="form-control" type="file" id="cv"
+                               name="cv" value="{{ old('cv') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['cv']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="cv_old" value="{{ $user->app->data['cv'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0" class="mt-1">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -505,7 +527,12 @@
                 <div class="mb-3 mt-3 row">
                     <label for="rl1" class="col-3 col-form-label">Recommendation Letter #1</label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="rl1">
+                        <input class="form-control" type="file" id="rl1"
+                               name="rl1" value="{{ old('rl1') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl1']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="rl1_old" value="{{ $user->app->data['rl1'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -513,7 +540,12 @@
                 <div class="mb-3 mt-3 row">
                     <label for="rl2" class="col-3 col-form-label">Recommendation Letter #2</label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="rl2">
+                        <input class="form-control" type="file" id="rl2"
+                               name="rl2" value="{{ old('rl2') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl2']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="rl2_old" value="{{ $user->app->data['rl2'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -525,9 +557,8 @@
                 <div class="mb-3 row">
                     <label for="citizenship" class="col-3 col-form-label">Citizenship <span>*</span></label>
                     <div class="col-9">
-                        <select class="form-select" id="citizenship">
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                        <select class="form-select" id="citizenship" name="citizenship" required>
+                            @include('_elements.countries', ['selected' => old('citizenship') ?: ($user->app ? $user->app->data['citizenship'] : '')])
                         </select>
                     </div>
                 </div>
@@ -535,9 +566,8 @@
                 <div class="mb-3 row">
                     <label for="citizenship2" class="col-3 col-form-label">Second citizenship</label>
                     <div class="col-9">
-                        <select class="form-select" id="citizenship2">
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                        <select class="form-select" id="citizenship2" name="citizenship2">
+                            @include('_elements.countries', ['selected' => old('citizenship2') ?: ($user->app ? $user->app->data['citizenship2'] : '')])
                         </select>
                     </div>
                 </div>
@@ -546,25 +576,26 @@
                 <p>Place of permanent residence</p>
 
                 <div class="mb-3 row">
-                    <label for="per-city" class="col-3 col-form-label">City <span>*</span></label>
+                    <label for="per_city" class="col-3 col-form-label">City <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="per-city" class="form-control">
+                        <input type="text" class="form-control" id="per_city" name="per_city" required
+                               value="{{ old('per_city') ?: ($user->app ? $user->app->data['per_city'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="per-state" class="col-3 col-form-label">State / Province <span>*</span></label>
+                    <label for="per_state" class="col-3 col-form-label">State / Province <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="per-state" class="form-control">
+                        <input type="text" class="form-control" id="per_state" name="per_state" required
+                               value="{{ old('per_state') ?: ($user->app ? $user->app->data['per_state'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="per-country" class="col-3 col-form-label">Country <span>*</span></label>
+                    <label for="per_country" class="col-3 col-form-label">Country <span>*</span></label>
                     <div class="col-9">
-                        <select class="form-select" id="per-country">
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                        <select class="form-select" id="per_country" name="per_country" required>
+                            @include('_elements.countries', ['selected' => old('per_country') ?: ($user->app ? $user->app->data['per_country'] : '')])
                         </select>
                     </div>
                 </div>
@@ -573,40 +604,47 @@
                 <p>Passport</p>
 
                 <div class="mb-3 row">
-                    <label for="pass-country" class="col-3 col-form-label">Country of issue <span>*</span></label>
+                    <label for="pass_country" class="col-3 col-form-label">Country of issue <span>*</span></label>
                     <div class="col-9">
-                        <select class="form-select" id="pass-country">
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                        <select class="form-select" id="pass_country" name="pass_country" required>
+                            @include('_elements.countries', ['selected' => old('pass_country') ?: ($user->app ? $user->app->data['pass_country'] : '')])
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="pass-number" class="col-3 col-form-label">Passport number <span>*</span></label>
+                    <label for="pass_number" class="col-3 col-form-label">Passport number <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="pass-number" class="form-control">
+                        <input type="text" class="form-control" id="pass_number" name="pass_number" required
+                               value="{{ old('pass_number') ?: ($user->app ? $user->app->data['pass_number'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="pass-from" class="col-3 col-form-label">Date of issue <span>*</span></label>
+                    <label for="pass_from" class="col-3 col-form-label">Date of issue <span>*</span></label>
                     <div class="col-9">
-                        <input type="date" id="pass-from" class="form-control">
+                        <input type="date" class="form-control" id="pass_from" name="pass_from" required
+                               value="{{ old('pass_from') ?: ($user->app ? $user->app->data['pass_from'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="pass-to" class="col-3 col-form-label">Valid until <span>*</span></label>
+                    <label for="pass_to" class="col-3 col-form-label">Valid until <span>*</span></label>
                     <div class="col-9">
-                        <input type="date" id="pass-to" class="form-control">
+                        <input type="date" class="form-control" id="pass_to" name="pass_to" required
+                               value="{{ old('pass_to') ?: ($user->app ? $user->app->data['pass_to'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 mt-3 row">
-                    <label for="pass-scan" class="col-3 col-form-label">Scanned copy of passport biographical page <span>*</span></label>
+                    <label for="pass_scan" class="col-3 col-form-label">Scanned copy of passport biographical page <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="file" id="pass-scan">
+                        <input class="form-control" type="file" id="pass_scan"
+                               name="pass_scan" value="{{ old('pass_scan') }}" accept="application/pdf">
+                        @if ($user->app)
+                            <div class="mt-2 mb-2">See file <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['pass_scan']) }}" target="_blank">here</a>.</div>
+                            <input type="hidden" name="pass_scan_old" value="{{ $user->app->data['pass_scan'] }}">
+                        @endif
                     </div>
                     <p style="font-size: 12px; margin-bottom: 0">A single pdf file, 20 Mb max (see e.g. https://online2pdf.com).</p>
                 </div>
@@ -616,33 +654,35 @@
                 <p>Russian Embassy or Consulate where you plan to obtain your visa: (please indicate a country and city that have a Russian Embassy or Consulate)</p>
 
                 <div class="mb-3 row">
-                    <label for="embassy-city" class="col-3 col-form-label">City <span>*</span></label>
+                    <label for="embassy_city" class="col-3 col-form-label">City <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="embassy-city" class="form-control">
+                        <input type="text" class="form-control" id="embassy_city" name="embassy_city" required
+                               value="{{ old('embassy_city') ?: ($user->app ? $user->app->data['embassy_city'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="embassy-state" class="col-3 col-form-label">State / Province <span>*</span></label>
+                    <label for="embassy_state" class="col-3 col-form-label">State / Province <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="embassy-state" class="form-control">
+                        <input type="text" class="form-control" id="embassy_state" name="embassy_state" required
+                               value="{{ old('embassy_state') ?: ($user->app ? $user->app->data['embassy_state'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="embassy-country" class="col-3 col-form-label">Country <span>*</span></label>
+                    <label for="embassy_country" class="col-3 col-form-label">Country <span>*</span></label>
                     <div class="col-9">
-                        <select class="form-select" id="embassy-country">
-                            <option selected disabled value="">Choose...</option>
-                            <option>...</option>
+                        <select class="form-select" id="embassy_country" name="embassy_country" required>
+                            @include('_elements.countries', ['selected' => old('embassy_country') ?: ($user->app ? $user->app->data['embassy_country'] : '')])
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="add-info" class="col-3 col-form-label">Additional information</label>
+                    <label for="add_info" class="col-3 col-form-label">Additional information</label>
                     <div class="col-9">
-                        <textarea class="form-control" id="add-info" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" id="add_info" name="add_info" required
+                        >{{ old('add_info') ?: ($user->app ? $user->app->data['add_info'] : '') }}</textarea>
                     </div>
                 </div>
 
@@ -651,7 +691,7 @@
 
                 <div class="row mt-3">
                     <div class="col-5"></div>
-                    <button class="btn btn-all-blue col-2" type="submit">Submit</button>
+                    <button class="btn btn-all-blue col-2">Submit</button>
                 </div>
 
             </form>
@@ -671,7 +711,7 @@
                         <hr>
                         @break
                 @endswitch
-                @include('_elements.app')
+                @include('_elements.app', ['app' => $user->app])
             </div>
         @endif
         <div style="margin-bottom: 100px;"></div>

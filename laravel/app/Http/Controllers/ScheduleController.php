@@ -16,13 +16,17 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
+        //
         $intervals = Interval::all();
         $teacherId = Auth::user()->teacher->id;
         $schedule = Schedule::where('teacher_id', $teacherId)->get()->groupBy('date');
-//        dd($schedule);
+        //
+//        $view = 'schedule/index';
+        $view = '_bs/schedule/index';
         return view(
-            'schedule/index',
-            compact('intervals', 'schedule')
+            $view,
+            compact('user', 'intervals', 'schedule')
         );
     }
 
@@ -50,6 +54,8 @@ class ScheduleController extends Controller
 
     public function item(Request $request, Schedule $schedule)
     {
+        $user = Auth::user();
+        //
         $interview = Interview::where('schedule_id', $schedule->id)->first();
         $applicationProgram = DB::table('application_program')
             ->where('id', $interview->application_program_id)
@@ -57,28 +63,43 @@ class ScheduleController extends Controller
         $application = Application::where('id', $applicationProgram->application_id)->first();
         $program = Program::where('id', $applicationProgram->program_id)->first();
         $enrollee = User::where('id', $application->user_id)->first();
+        //
+//        $view = 'schedule/item';
+        $view = '_bs/schedule/item';
         return view(
-            'schedule/item',
-            compact('interview', 'enrollee', 'schedule', 'program', 'application')
+            $view,
+            compact(
+                'user',
+                'interview',
+                'enrollee',
+                'schedule',
+                'program',
+                'application'
+            )
         );
     }
 
     public function editItem(Request $request, Schedule $schedule)
     {
         $request->validate([
-            'conference_link' => 'required',
-            'mark_value' => 'nullable|integer|min:0|max:100',
+            'conference_link' => 'required_without_all:mark_value,mark_comment',
+            'mark_value' => 'required_without:conference_link|integer|min:0|max:100',
+            'mark_comment' => 'required_without:conference_link',
         ]);
+        //
         $interview = Interview::where('schedule_id', $schedule->id)->first();
-        $interview->conference_link = $request->conference_link;
-
+        //
+        if ($request->filled('conference_link')) {
+            $interview->conference_link = $request->conference_link;
+        }
+        //
         if ($request->filled('mark_value')) {
             $interview->mark_value = $request->mark_value;
         }
         if ($request->filled('mark_comment')) {
             $interview->mark_comment = $request->mark_comment;
         }
-
+        //
         $interview->save();
         return back();
     }

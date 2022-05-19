@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="date" name="date" id="date" value="{{ old('date') }}" required>
+                    <input type="date" id="date" name="date" value="{{ old('date') }}" required>
                 </td>
                 <td>
                     @foreach($intervals as $interval)

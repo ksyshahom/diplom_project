@@ -43,7 +43,7 @@ Route::middleware([isNotAuth::class])->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
 });
 
-// [][] Только авторизованные пользователи.
+// [][+] Только авторизованные пользователи.
 Route::middleware([isAuth::class])->group(function () {
     // [+] Выход из личного кабинета.
     Route::get('/auth/logout', [AuthController::class, 'logout']);
@@ -53,8 +53,8 @@ Route::middleware([isAuth::class])->group(function () {
 
     // [][] Абитуриент.
     Route::middleware([isEnrollee::class])->group(function () {
-        // [][+] Абитуриент: Страница создания заявки.
-        // [] Отправленную заявку абитуриент сможет просмотреть здесь ([+] и статус, [] и содержание).
+        // [F][+] Абитуриент: Страница создания заявки.
+        // [+] Отправленную заявку абитуриент сможет просмотреть здесь ([+] и статус, [+] и содержание).
         // [+] Повторная отправка заявки происходит также на этой странице.
         Route::get('/app', [AppController::class, 'index']);
         // [+] Абитуриент: Отправка заявки.
@@ -113,9 +113,9 @@ Route::middleware([isAuth::class])->group(function () {
         Route::post('/schedule/{schedule}', [ScheduleController::class, 'editItem']);
     });
 
-    // [][] Все, кроме абитуриента.
+    // [F][+] Все, кроме абитуриента.
     Route::middleware([isNotEnrollee::class])->group(function () {
-        // [][] Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
+        // [F][+] Просмотр заявки абитуриента. Доступен администратору, преподавателю и сотруднику примной комиссии.
         Route::get('/app/{application}', [AppController::class, 'item']);
     });
 });

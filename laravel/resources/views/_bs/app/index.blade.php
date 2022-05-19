@@ -43,7 +43,6 @@
                     <p style="font-size: 25px;"><strong>Application status:</strong> rejected.</p>
                     <p>Reason for rejection: {!! $user->app->comment ?: '-' !!}</p>
                     <p>Your application has been rejected. Please proceed to change your responses according to the Admission Officer's comment above. If you have changed your mind about applying to MISiS, you can <a href="/app/delete" class="color-blue">delete your application</a>.</p>
-                    <hr>
                 @endif
 
                 @if ($errors->any())

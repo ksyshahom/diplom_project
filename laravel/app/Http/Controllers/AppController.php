@@ -193,8 +193,16 @@ class AppController extends Controller
 
     public function appList(Request $request)
     {
+        $user = Auth::user();
+        //
         $enrollees = User::where('role_id', 1)->get();
-        return view('app/list', compact('enrollees'));
+        //
+//        $view = 'app/list';
+        $view = '_bs/app/list';
+        return view(
+            $view,
+            compact('user', 'enrollees')
+        );
     }
 
     public function edit(Request $request)

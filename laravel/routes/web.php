@@ -88,9 +88,9 @@ Route::middleware([isAuth::class])->group(function () {
         Route::get('/report', [ReportController::class, 'index']);
     });
 
-    // [][+] Сотрудник приемной комиссии.
+    // [F][+] Сотрудник приемной комиссии.
     Route::middleware([isAdmissionOfficer::class])->group(function () {
-        // [][+] Сотрудник приемной комиссии: Сможет просматривать заявки всех абитуриентов и переходить к ним.
+        // [F][+] Сотрудник приемной комиссии: Сможет просматривать заявки всех абитуриентов и переходить к ним.
         Route::get('/app/list', [AppController::class, 'appList']);
         // [+] Сотрудник приемной комиссии: Сможет редактировать заявки (POST).
         Route::post('/app/list', [AppController::class, 'edit']);

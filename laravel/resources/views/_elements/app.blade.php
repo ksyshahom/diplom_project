@@ -178,6 +178,8 @@
             <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}"
                target="_blank">See file here</a>
         </div>
+    @else
+        <div class="col-9">–</div>
     @endif
 </div>
 
@@ -205,6 +207,8 @@
             <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['sop']) }}"
                target="_blank">See file here</a>
         </div>
+    @else
+        <div class="col-9">–</div>
     @endif
 </div>
 
@@ -215,6 +219,8 @@
             <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['cv']) }}"
                target="_blank">See file here</a>
         </div>
+    @else
+        <div class="col-9">–</div>
     @endif
 </div>
 
@@ -225,6 +231,8 @@
             <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl1']) }}"
                target="_blank">See file here</a>
         </div>
+    @else
+        <div class="col-9">–</div>
     @endif
 </div>
 
@@ -235,6 +243,8 @@
             <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl2']) }}"
                target="_blank">See file here</a>
         </div>
+    @else
+        <div class="col-9">–</div>
     @endif
 </div>
 
@@ -244,58 +254,59 @@
 
 <div class="mb-3 row">
     <label class="col-3">Citizenship</label>
-    <div class="col-9">Fluent</div>
+    <div class="col-9">{{ $app->data['citizenship'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Second citizenship</label>
-    <div class="col-9">–</div>
+    <div class="col-9">{{ $app->data['citizenship2'] ?? '–' }}</div>
 </div>
 
 <p>Place of permanent residence:</p>
 
 <div class="mb-3 row">
     <label class="col-3">City</label>
-    <div class="col-9">City</div>
+    <div class="col-9">{{ $app->data['per_city'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">State / Province</label>
-    <div class="col-9">State / Province</div>
+    <div class="col-9">{{ $app->data['per_state'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Country</label>
-    <div class="col-9">Country</div>
+    <div class="col-9">{{ $app->data['per_country'] }}</div>
 </div>
 
 <p>Passport:</p>
 
 <div class="mb-3 row">
     <label class="col-3">Country of issue</label>
-    <div class="col-9">Country</div>
+    <div class="col-9">{{ $app->data['pass_country'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Passport number</label>
-    <div class="col-9">1111 111111</div>
+    <div class="col-9">{{ $app->data['pass_number'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Date of issue</label>
-    <div class="col-9">01-01-2022</div>
+    <div class="col-9">{{ $app->data['pass_from'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Valid until</label>
-    <div class="col-9">01-01-2022</div>
+    <div class="col-9">{{ $app->data['pass_to'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Scanned copy of passport biographical page</label>
-    <div class="col-9"><a class="color-blue" target="_blank"
-                          href="http://diplom.local/storage/users/5/xcux0AhYibpb2QEtWP1iPmMCcpMH6ewZDRCvErbL.pdf">See
-            file here</a></div>
+    <div class="col-9">
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['pass_scan']) }}"
+           target="_blank">See file here</a>
+    </div>
 </div>
 
 <hr>
@@ -304,26 +315,21 @@
 
 <div class="mb-3 row">
     <label class="col-3">City</label>
-    <div class="col-9">City</div>
+    <div class="col-9">{{ $app->data['embassy_city'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">State / Province</label>
-    <div class="col-9">State / Province</div>
+    <div class="col-9">{{ $app->data['embassy_state'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Country</label>
-    <div class="col-9">Country</div>
+    <div class="col-9">{{ $app->data['embassy_country'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Additional information</label>
-    <div class="col-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.
-    </div>
+    <div class="col-9">{{ $app->data['add_info'] ?? '–' }}</div>
 </div>
 

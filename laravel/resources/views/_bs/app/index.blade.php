@@ -338,42 +338,48 @@
                 <div class="mb-3 row">
                     <label for="institution" class="col-3 col-form-label">Institution <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="institution" class="form-control">
+                        <input type="text" id="institution" class="form-control" name="institution" required
+                               value="{{ old('institution') ?: ($user->app ? $user->app->data['institution'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="city-country" class="col-3 col-form-label">City / Country <span>*</span></label>
+                    <label for="city_country" class="col-3 col-form-label">City / Country <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="city-country" class="form-control">
+                        <input type="text" id="city_country" class="form-control" name="city_country" required
+                               value="{{ old('city_country') ?: ($user->app ? $user->app->data['city_country'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="year-from-to" class="col-3 col-form-label">Year (from-to) <span>*</span></label>
+                    <label for="year_from_to" class="col-3 col-form-label">Year (from-to) <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="year-from-to" class="form-control">
+                        <input type="text" id="year_from_to" class="form-control" name="year_from_to" required
+                               value="{{ old('year_from_to') ?: ($user->app ? $user->app->data['year_from_to'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="field-of-study" class="col-3 col-form-label">Field of study <span>*</span></label>
+                    <label for="field_of_study" class="col-3 col-form-label">Field of study <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="field-of-study" class="form-control">
+                        <input type="text" id="field_of_study" class="form-control" name="field_of_study" required
+                               value="{{ old('field_of_study') ?: ($user->app ? $user->app->data['field_of_study'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="degree-title" class="col-3 col-form-label">Degree title <span>*</span></label>
+                    <label for="degree_title" class="col-3 col-form-label">Degree title <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="degree-title" class="form-control">
+                        <input type="text" id="degree_title" class="form-control" name="degree_title" required
+                               value="{{ old('degree_title') ?: ($user->app ? $user->app->data['degree_title'] : '') }}">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label for="gpa" class="col-3 col-form-label">GPA (Received / Max) <span>*</span></label>
                     <div class="col-9">
-                        <input type="text" id="gpa" class="form-control">
+                        <input type="text" id="gpa" class="form-control" name="gpa" required
+                               value="{{ old('gpa') ?: ($user->app ? $user->app->data['gpa'] : '') }}">
                     </div>
                 </div>
 

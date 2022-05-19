@@ -43,7 +43,12 @@ class AppController extends Controller
                 'why_enroll' => 'required',
                 'source' => 'required_without:source_other|array|min:1',
                 'source_other' => 'required_without:source',
-                // ...
+                'institution' => 'required',
+                'city_country' => 'required',
+                'year_from_to' => 'required',
+                'field_of_study' => 'required',
+                'degree_title' => 'required',
+                'gpa' => 'required',
                 'diploma' => 'required_without:diploma_old',
                 'diploma_old' => 'required_without:diploma',
                 // ...

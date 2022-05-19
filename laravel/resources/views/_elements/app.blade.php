@@ -1,77 +1,85 @@
+@php
+    use App\Models\Program;
+@endphp
+
 <p><strong>Personal Information</strong></p>
 
 <div class="mb-3 row">
     <label class="col-3">First name</label>
-    <div class="col-9">Ksenia</div>
+    <div class="col-9">{{ $app->data['first_name'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Middle name</label>
-    <div class="col-9">–</div>
+    <div class="col-9">{{ $app->data['middle_name'] ?? '–' }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Last name</label>
-    <div class="col-9">Ksenia</div>
+    <div class="col-9">{{ $app->data['last_name'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Date of birth</label>
-    <div class="col-9">01-01-2000</div>
+    <div class="col-9">{{ $app->data['birth_date'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Place of birth</label>
-    <div class="col-9">Ksenia</div>
+    <div class="col-9">{{ $app->data['birth_place'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Nationality</label>
-    <div class="col-9">Ksenia</div>
+    <div class="col-9">{{ $app->data['nationality'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Desired Program of Study (first priority)</label>
-    <div class="col-9">Quantum Physics for Advanced Materials Engineering</div>
+    <div class="col-9">{{ Program::where('id', $app->data['program_01'])->first()->name }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Desired Program of Study (second priority)</label>
-    <div class="col-9">Quantum Physics for Advanced Materials Engineering</div>
+    <div class="col-9">{{ Program::where('id', $app->data['program_02'])->first()->name }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Desired Program of Study (third priority)</label>
-    <div class="col-9">Quantum Physics for Advanced Materials Engineering</div>
+    <div class="col-9">{{ Program::where('id', $app->data['program_03'])->first()->name }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Native language</label>
-    <div class="col-9">English</div>
+    <div class="col-9">{{ $app->data['native_lang'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Gender</label>
-    <div class="col-9">Male</div>
+    <div class="col-9">{{ $app->data['gender'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Home phone number</label>
-    <div class="col-9">–</div>
+    <div class="col-9">{{ $app->data['home_phone_code'] && $app->data['home_phone'] ? ($app->data['home_phone_code'] . '-' . $app->data['home_phone']) : '–' }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">Mobile phone number (for WhatsApp, Telegram or Viber)</label>
-    <div class="col-9">+7-9998887766</div>
+    <div class="col-9">{{ $app->data['mobile_phone_code'] . '-' . $app->data['mobile_phone'] }}</div>
 </div>
 
 <div class="mb-3 row">
     <label class="col-3">A color passport-style photo</label>
     <div class="col-9">
-        <img src="http://diplom.local/storage/users/5/q5o8qAKrKxiI6XqYnofX12YMrzb7X964W5A699Te.jpg" alt="photo"
-             width="200"><br>
-        <a class="color-blue" target="_blank"
-           href="http://diplom.local/storage/users/5/q5o8qAKrKxiI6XqYnofX12YMrzb7X964W5A699Te.jpg">See file here</a>
+        @if ($app->data['photo'])
+            <img src="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}" alt="photo"
+                 width="200"><br>
+            <a class="color-blue" target="_blank"
+               href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}">See file here</a>
+        @else
+            <span>–</span>
+        @endif
     </div>
 </div>
 

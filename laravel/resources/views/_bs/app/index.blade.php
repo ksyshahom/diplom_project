@@ -42,7 +42,7 @@
                 @if($user->app && $user->app->verified == 2)
                     <hr>
                     <p style="font-size: 25px;"><strong>Application status:</strong> rejected.</p>
-                    <p>Reason for rejection: {!! $user->app->comment !!}</p>
+                    <p>Reason for rejection: {!! $user->app->comment ?: '-' !!}</p>
                     <p>Your application has been rejected. Please proceed to change your responses according to the Admission Officer's comment above. If you have changed your mind about applying to MISiS, you can <a href="/app/delete" class="color-blue">delete your application</a>.</p>
                     <hr>
                 @endif
@@ -64,7 +64,7 @@
                 <div class="mb-3 row">
                     <label for="fn" class="col-3 col-form-label">First name <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="fn" name="first_name" required
+                        <input class="form-control" type="text" id="fn" name="first_name" required readonly
                                value="{{ old('first_name') ?: ($user->app ? $user->app->data['first_name'] : $user->first_name) }}">
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="mb-3 row">
                     <label for="mn" class="col-3 col-form-label">Middle name</label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="ln" name="middle_name"
+                        <input class="form-control" type="text" id="ln" name="middle_name" readonly
                                value="{{ old('middle_name') ?: ($user->app ? $user->app->data['middle_name'] : ($user->middle_name ?: '')) }}">
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                 <div class="mb-3 row">
                     <label for="ln" class="col-3 col-form-label">Last name <span>*</span></label>
                     <div class="col-9">
-                        <input class="form-control" type="text" id="mn" name="last_name" required
+                        <input class="form-control" type="text" id="mn" name="last_name" required readonly
                                value="{{ old('last_name') ?: ($user->app ? $user->app->data['last_name'] : $user->last_name) }}">
                     </div>
                 </div>
@@ -693,7 +693,7 @@
                 <div class="mb-3 row">
                     <label for="add_info" class="col-3 col-form-label">Additional information</label>
                     <div class="col-9">
-                        <textarea class="form-control" rows="3" id="add_info" name="add_info" required
+                        <textarea class="form-control" rows="3" id="add_info" name="add_info"
                         >{{ old('add_info') ?: ($user->app ? $user->app->data['add_info'] : '') }}</textarea>
                     </div>
                 </div>

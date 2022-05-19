@@ -21,6 +21,7 @@
 <main>
     <p><a href="/dashboard">Вернуться в личный кабинет.</a></p>
     <p>Запись на собеседование.</p>
+
     <form method="GET">
         <label>Часовой пояс*<br>
             <select name="timezone" required>
@@ -34,7 +35,9 @@
         <br>
         <button>Применить часовой пояс</button>
     </form>
+
     <hr>
+
     @if (request()->filled('timezone'))
         <form method="POST" enctype="multipart/form-data">
             @csrf

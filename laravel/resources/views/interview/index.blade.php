@@ -11,7 +11,7 @@
 <main>
     <p><a href="/dashboard">Вернуться в личный кабинет.</a></p>
     <p>Собеседования.</p>
-    <form method="GET">
+    <form>
         <label>Часовой пояс*<br>
             <select name="timezone" required>
                 <option value>Выберите часовой пояс</option>

@@ -17,9 +17,10 @@ class InterviewController extends Controller
 {
     public function index(Request $request)
     {
+        $user = Auth::user();
+        //
         $timezones = Timezones::getList();
         //
-        $user = Auth::user();
         $applicationProgramRows = DB::table('application_program')
             ->where('application_id', $user->app->id)
             ->orderBy('priority')
@@ -36,14 +37,18 @@ class InterviewController extends Controller
             ->get()
             ->keyBy('application_program_id');
         //
+//        $view = 'interview/index';
+        $view = '_bs/interview/index';
         return view(
-            'interview/index',
-            compact('timezones', 'applicationProgramRows', 'programs', 'interviews')
+            $view,
+            compact('user', 'timezones', 'applicationProgramRows', 'programs', 'interviews')
         );
     }
 
     public function item(Request $request, Program $program)
     {
+        $user = Auth::user();
+        //
         $timezones = Timezones::getList();
         //
         $programTeacher = DB::table('program_teacher')
@@ -73,9 +78,11 @@ class InterviewController extends Controller
             }
         }
         //
+//        $view = 'interview/item';
+        $view = '_bs/interview/item';
         return view(
-            'interview/item',
-            compact('timezones', 'timezoneSchedule')
+            $view,
+            compact('user', 'timezones', 'timezoneSchedule')
         );
     }
 

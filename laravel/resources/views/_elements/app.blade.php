@@ -73,10 +73,10 @@
     <label class="col-3">A color passport-style photo</label>
     <div class="col-9">
         @if ($app->data['photo'])
-            <img src="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}" alt="photo"
+            <img src="{{ \Illuminate\Support\Facades\Storage::url($app->data['photo']) }}" alt="photo"
                  width="200"><br>
             <a class="color-blue" target="_blank"
-               href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['photo']) }}">See file here</a>
+               href="{{ \Illuminate\Support\Facades\Storage::url($app->data['photo']) }}">See file here</a>
         @else
             <span>–</span>
         @endif
@@ -153,7 +153,7 @@
 <div class="mb-3 row">
     <label class="col-3">Bachelor or previous educational diploma scan</label>
     <div class="col-9">
-        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['diploma']) }}"
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['diploma']) }}"
            target="_blank">See file here</a>
     </div>
 </div>
@@ -161,7 +161,7 @@
 <div class="mb-3 row">
     <label class="col-3">Bachelor or previous educational transcripts scan</label>
     <div class="col-9">
-        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['transcripts']) }}"
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['transcripts']) }}"
            target="_blank">See file here</a>
     </div>
 </div>
@@ -175,7 +175,7 @@
     <label class="col-3">Scans of documents related to other achievements</label>
     @if (isset($app->data['achievements_doc']))
         <div class="col-9">
-            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['achievements_doc']) }}"
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['achievements_doc']) }}"
                target="_blank">See file here</a>
         </div>
     @else
@@ -204,7 +204,7 @@
     <label class="col-3">Statement of Purpose (1-2 pages)</label>
     @if (isset($app->data['sop']))
         <div class="col-9">
-            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['sop']) }}"
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['sop']) }}"
                target="_blank">See file here</a>
         </div>
     @else
@@ -216,7 +216,7 @@
     <label class="col-3">CV</label>
     @if (isset($app->data['cv']))
         <div class="col-9">
-            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['cv']) }}"
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['cv']) }}"
                target="_blank">See file here</a>
         </div>
     @else
@@ -228,7 +228,7 @@
     <label class="col-3">Recommendation Letter #1</label>
     @if (isset($app->data['rl1']))
         <div class="col-9">
-            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl1']) }}"
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['rl1']) }}"
                target="_blank">See file here</a>
         </div>
     @else
@@ -240,7 +240,7 @@
     <label class="col-3">Recommendation Letter #2</label>
     @if (isset($app->data['rl2']))
         <div class="col-9">
-            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['rl2']) }}"
+            <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['rl2']) }}"
                target="_blank">See file here</a>
         </div>
     @else
@@ -304,7 +304,7 @@
 <div class="mb-3 row">
     <label class="col-3">Scanned copy of passport biographical page</label>
     <div class="col-9">
-        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($user->app->data['pass_scan']) }}"
+        <a class="color-blue" href="{{ \Illuminate\Support\Facades\Storage::url($app->data['pass_scan']) }}"
            target="_blank">See file here</a>
     </div>
 </div>

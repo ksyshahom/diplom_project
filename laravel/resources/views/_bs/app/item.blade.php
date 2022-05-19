@@ -42,7 +42,7 @@
         </div>
 
         <div>
-            @include('_elements.app')
+            @include('_elements.app', ['app' => $application])
         </div>
         <div style="margin-bottom: 100px;"></div>
     </div>
